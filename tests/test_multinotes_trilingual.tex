@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[english,cleanlook]{isodate}
+
+% layout
+\usepackage[a4paper]{geometry}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.3em}
+\setlength\parsep{\parskip}
+
+% misc
+\usepackage{color}
+\usepackage{lipsum}
+
+% bitest
+\usepackage{multinotes}
+\definelanguage{french}{fr}{fra}{francais}{\color{blue}}
+\definelanguage{german}{de}{deu}{deutsch}{\color{magenta}}
+\definelanguage{spanish}{es}{esp}{espanol}{\color{red}}
+
+\includelanguage{french}
+\includelanguage{german}
+\includelanguage{spanish}
+\loadbabel
+
+\setlanguagestyle{french}{\color{blue}}
+\setlanguagestyle{german}{\color{magenta}}
+\setlanguagestyle{spanish}{\color{red}}
+\setcommonstyle{\color{black}}
+
+% for troubleshooting spaces
+%\renewcommand{\normalfont}{\ttfamily}
+%\excludelanguage{german}
+
+%\paracol options
+\usepackage{paracol}
+\columnsep=0.1\textwidth
+\columnseprule=0.4pt
+\raggedright
+\localcounter{section}
+\localcounter{enumi}
+
+% meta
+\title{\fra{Le document} | \esp{El document} | \deu{Ze document}}
+\author{DE}
+\date{\fra{\today} | \esp{\today} | \deu{\today}}
+
+%\input{runtime-options}
+
+%--------------------
+\begin{document}
+\maketitle
+
+\bigskip\hrule\bigskip
+
+\begin{abstract}
+Here is the default abstract (last language loaded).
+\end{abstract}
+
+\bigskip\hrule\bigskip
+
+\begin{multicols}
+
+\begin{francais}
+\begin{abstract}
+Here is the French abstract.
+\end{abstract}
+\end{francais}
+
+\begin{espanol}
+\begin{abstract}
+Here is the Spanish abstract.
+\end{abstract}
+\end{espanol}
+
+\begin{deutsch}
+\begin{abstract}
+Here is the German abstract.
+\end{abstract}
+\end{deutsch}
+
+\end{multicols}
+
+\bigskip\hrule\bigskip
+
+1. \fr Salut \es Hola \de Hallo \zz
+
+\bigskip\hrule\bigskip
+
+2. {\fr Salut} {\es Hola} {{\de Hallo}
+
+\bigskip\hrule\bigskip
+
+3. {\fr Salut \es Hola \de Hallo \zz}
+
+\bigskip\hrule\bigskip
+
+4. \fra{Salut} \esp{Hola} \deu{Hallo}
+
+\bigskip\hrule\bigskip
+
+5.%
+\begin{francais}
+Salut
+\end{francais}%
+\begin{espanol}%
+Hola
+\end{espanol}%
+\begin{deutsch}%
+Hallo
+\end{deutsch}
+
+\bigskip\hrule\bigskip
+
+\section{Test multicols}
+
+\multicolson
+\begin{multicols}
+
+\fr Salut-dec \es Hola-dec \de Hallo-dec \zz
+
+\fra{Salut-mac} \esp{Hola-mac} \deu{Hallo-mac} 
+
+\begin{francais}
+Salut-env
+\end{francais}
+\begin{espanol}
+Hola-env
+\end{espanol}
+\begin{deutsch}
+Hallo-env
+\end{deutsch}
+
+\fr Salut-dec2 \es Hola-dec2 \de Hallo-dec2 \zz
+
+\fra{Salut-mac2} \esp{Hola-mac2} \deu{Hallo-mac2} 
+
+\begin{francais}
+Salut-env2
+\end{francais}
+\begin{espanol}
+Hola-env2
+\end{espanol}
+\begin{deutsch}
+Hallo-env2
+\end{deutsch}
+
+\end{multicols}
+
+% test multicols with lipsum
+\section{Test multicols II}
+
+\begin{multicols}
+
+\begin{francais}
+\lipsum[1]
+\end{francais}
+
+\begin{espanol}
+\lipsum[2]
+\end{espanol}
+
+\begin{deutsch}
+\lipsum[3]
+\end{deutsch}
+
+% test mcsync
+\mcsync
+
+\begin{francais}
+\section{French}
+\lipsum[4]
+\end{francais}
+
+\begin{espanol}
+\section{Spanish}
+\lipsum[5]
+\end{espanol}
+
+\begin{deutsch}
+\section{German}
+\lipsum[6]
+\end{deutsch}
+
+\end{multicols}
+
+\end{document}

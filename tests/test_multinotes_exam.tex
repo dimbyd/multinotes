@@ -1,0 +1,78 @@
+% test_multinotes_exam.tex
+% Test multinotes package interactnteraction with exam.cls
+\documentclass{exam}
+\usepackage[T1]{fontenc}
+\usepackage[english,cleanlook]{isodate}
+
+% layout
+\usepackage[a4paper]{geometry}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.3em}
+\setlength\parsep{\parskip}
+
+\usepackage{color}
+\usepackage{lipsum}
+
+% exam.cls options
+\bracketedpoints
+\pointsinrightmargin
+\pointsdroppedatright
+\addpoints
+
+% bitest
+\usepackage{multinotes}
+\definelanguage{welsh}{cy}{cym}{cymraeg}
+\definelanguage{english}{en}{eng}{english}
+
+\setlanguagestyle{welsh}{\color{red}}
+\setlanguagestyle{english}{\color{blue}\slshape}
+
+\includelanguage{welsh}
+\includelanguage{english}
+\loadbabel
+
+% shortcuts
+\newcommand{\ency}[2]{\eng{#1}\cym{#2}}
+\newcommand{\cyen}[2]{\cym{#1}\eng{#2}}
+
+% meta
+\title{\cym{Prawf 1}\eng{Test 1}}
+\author{DE}
+\date{\cym{\today}\eng{\today}}
+
+%\newcommand{\ans}[1]{\fbox{#1}}
+
+%--------------------
+\begin{document}
+\maketitle
+
+This file tests how \verb+multinotes.sty+ interacts with \verb+exam.cls+.
+
+\bigskip\hrule\bigskip
+
+\section{\cyen{Adran}{Section} A}
+\cy Atebwch y cwestiynnau isod.\zz
+\en Answer the questions below.\zz
+\begin{questions}
+\question 1+1
+\question 2+2
+\end{questions}
+
+\section{\cyen{Adran}{Section} B}
+
+\begin{questions}
+\question \cym{Datryswch}\eng{Solve} 3+3 \ans{\cyen{Chwech}{Six}}
+\question 2+2\ans{4}
+\end{questions}
+
+\bigskip\hrule\bigskip
+
+\begin{questions}
+\question[2] Factorize $x^2-2x+1$. \droppoints
+\question[3] Find the roots of $x^2-2x+1=0$. \droppoints
+\end{questions}
+
+\bigskip\hrule\bigskip
+
+\end{document}
+%--------------------

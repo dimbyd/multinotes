@@ -1,0 +1,230 @@
+% binotes_lang_demo.tex 
+% demo file for binotes language options
+
+%\PassOptionsToPackage{cy}{binotes}
+\PassOptionsToPackage{en}{binotes}
+%\PassOptionsToPackage{en,cy}{binotes}
+%\PassOptionsToPackage{cy,en}{binotes}
+
+%------------------------------------------------
+\documentclass{article}
+%------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[english,cleanlook]{isodate}
+
+% layout
+\usepackage[a4paper]{geometry}
+\geometry{left=20mm,right=20mm}
+\geometry{top=30mm,bottom=30mm}
+%\geometry{landscape}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+% binotes
+\usepackage{binotes}
+\columnsep=0.1\textwidth
+\columnratio{0.5}
+\textcolour{black}
+\backgroundcolour{yellow!03}
+\enstyle{\color{teal}\sl}
+\cystyle{\color{purple}\sl}
+\newcommand{\ency}[2]{\eng{#1}\cym{#2}}
+\newcommand{\cyen}[2]{\cym{#1}\eng{#2}}
+
+% for testing
+\usepackage{lipsum}
+
+% nice title
+\renewcommand{\maketitle}[3]{
+    \begin{center}
+    \LARGE #1\\[1ex]
+    \large #2 \\[1ex]
+    \normalsize #3
+    \end{center}
+}
+
+%------------------------------------------------
+\begin{document}
+%------------------------------------------------
+
+\begin{twocol}
+
+\cym{\maketitle{Teiposod dogfennau ddwyieithog drwy {\tt binotes.sty}}{D Evans}{\today}}
+\eng{\maketitle{Typesetting bilingual documents with {\tt binotes.sty}}{D Evans}{\today}}
+
+\sync
+\cym{\begin{abstract}\lipsum[3]\end{abstract}}
+\eng{\begin{abstract}\lipsum[4]\end{abstract}}
+
+\sync
+\cym{\section{Cyflwyniad}}
+\eng{\section{Introduction}}
+
+\cym{Dyma ddogfen brawf ar gyfer teiposod dogfennau ddwyieithog gyda  {\tt binotes.sty}.}
+\eng{This is a test document for typesetting bilingual documents with {\tt binotes.sty}.}
+
+%------------------------------
+\sync
+\eng{\section{Declarations}}
+\cym{\section{Datganiadau}}
+
+\cy Dyma frawddeg.\zz
+\en Here is a sentence.
+\cy Dyma frawddeg arall.
+\en Here is another sentence.
+\zz
+
+%------------------------------
+\sync
+\eng{\section{Macros}}
+\cym{\section{Macros}}
+
+\cym{Dyma frawddeg.}
+\eng{Here is a sentence.} 
+\cym{Dyma frawddeg arall.}
+\eng{Here is another sentence.} 
+
+
+%------------------------------
+\sync
+\cym{\section{Amgylcheddau}}
+\eng{\section{Environments}}
+
+\begin{cymraeg}
+Cynnwys amgylchedd Gymraeg
+\end{cymraeg}
+
+\begin{english}
+The contents of an English environment
+\end{english}
+
+%------------------------------
+\sync
+\cym{\section{Rhestrau}}
+\eng{\section{Lists}}
+
+\cym{\subsection{Rhestr tu fewn paracol}}
+\eng{\subsection{List inside paracol}}
+
+\eng{Example~1}\cym{Enghraifft~1}
+\begin{cymraeg}
+\begin{enumerate}
+\item Eitem Un 
+\item Eitem Dau
+\end{enumerate}
+\end{cymraeg}
+\begin{english}
+\begin{enumerate}
+\item Item One 
+\item Item Two
+\end{enumerate}
+\end{english}
+
+\sync
+\eng{Example~2}\cym{Enghraifft~2}
+\sync
+\begin{itemize}
+\cym{\item Eitem Un}
+\eng{\item Item One}
+\cym{\item Eitem Dau}
+\eng{\item Item Two}
+\end{itemize}
+
+\sync
+\cym{\subsection{Paracol tu fewn rhestr}}
+\eng{\subsection{Paracol inside list}}
+
+\eng{This is better for numbering and alignment.}
+\cym{Mae hyn yn well o ran rhifo a chyfluniad.}
+
+\end{twocol}
+
+\twocol\eng{Example~1}\cym{Enghraifft~1}\endtwocol
+\begin{enumerate}
+\begin{twocol}
+\cym{\item Eitem Un}
+\eng{\item Item One}
+\cym{\item Eitem Dau}
+\eng{\item Item Two}
+\end{twocol}
+\end{enumerate}
+
+\twocol\eng{Example~2}\cym{Enghraifft~2}\endtwocol
+\begin{enumerate}
+\begin{twocol}
+\cym{\item Eitem Un \item Eitem Dau}
+\eng{\item Item One \item Item Two}
+\end{twocol}
+\end{enumerate}
+
+\twocol\eng{Example~3}\cym{Enghraifft~3}\endtwocol
+\begin{itemize}
+\begin{twocol}
+\cym{\item Eitem Un \item Eitem Dau}
+\eng{\item Item One \item Item Two}
+\end{twocol}
+\end{itemize}
+
+%------------------------------
+\begin{twocol}
+\eng{\section{Tables}}
+\cym{\section{Tablau}}
+\end{twocol}
+
+Here is a single table with bilingual entries (fine for mono).\par
+\begin{tabular}{|l|l|}
+\hline
+\cym{Dŵr}\eng{Water} 	& \cym{Blodau}\eng{Flowers} \\
+\hline
+\ency{Trees}{Coed}		& \cyen{Afon}{River} \\
+\hline
+\end{tabular}
+
+Here are two monolingual tables, one on each side of a {\tt twocol} environment (needed for parallel)
+
+\begin{twocol}
+\cym{
+\begin{tabular}{|l|l|}\hline
+Dŵr & Blodau \\ \hline
+Coed & Afon \\ \hline
+\end{tabular}
+}
+\eng{
+\begin{tabular}{|l|l|}\hline
+Water & Flowers \\ \hline
+Trees & River \\ \hline
+\end{tabular}
+}
+\end{twocol}
+
+
+%--------------------
+\begin{twocol}
+\eng{\section{Footnotes}}
+\cym{\section{Troednodiadau}}
+
+\en Footnotes can be moody!
+\cy Gall troednodiadau beri problemau!
+\end{twocol}
+\begin{twocol}
+\eng{A footnote here\footnote{Hello world!}.}
+\cym{Troednodyn fan hyn\footnote{Helo byd!}.}
+
+\end{twocol}
+
+%------------------------------
+\appendix
+
+%------------------------------
+\begin{twocol}
+\eng{\section{Paragraphs}}
+\cym{\section{Paragraffau}}
+\cym{\lipsum[1]}
+\eng{\lipsum[2]}
+\end{twocol}
+
+%------------------------------------------------
+\end{document}
+%------------------------------------------------
+
+

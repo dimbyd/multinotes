@@ -1,0 +1,630 @@
+%%
+%% This is file `multinotes.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% multinotes.dtx  (with options: `package')
+%% 
+%% Copyright (C) 2020 by Cerigos
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%%     http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+\ProvidesPackage{multinotes}[2017/12/31 version1 cerigos]
+\RequirePackage{amsmath,amsfonts,amssymb,amsthm}
+\RequirePackage{caption}
+\RequirePackage{comment}
+\RequirePackage{etoolbox}
+\RequirePackage{float}
+\RequirePackage{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{paracol}
+\RequirePackage{setspace}
+\RequirePackage{tikz}
+\RequirePackage{xifthen}
+\RequirePackage{xstring}
+\RequirePackage{xspace}
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+%%
+\newif\ifmultinotes@welsh
+\newif\ifmultinotes@breton
+\newif\ifmultinotes@irish
+\newif\ifmultinotes@catalan
+\newif\ifmultinotes@basque
+\newif\ifmultinotes@english
+\newif\ifmultinotes@french
+\newif\ifmultinotes@spanish
+\DeclareOption{welsh}{\multinotes@welshtrue}
+\DeclareOption{breton}{\multinotes@bretontrue}
+\DeclareOption{irish}{\multinotes@irishtrue}
+\DeclareOption{catalan}{\multinotes@catalantrue}
+\DeclareOption{basque}{\multinotes@basquetrue}
+\DeclareOption{english}{\multinotes@englishtrue}
+\DeclareOption{french}{\multinotes@frenchtrue}
+\DeclareOption{spanish}{\multinotes@spanishtrue}
+\newif\ifmultinotes@parallel
+\DeclareOption{parallel}{\multinotes@paralleltrue}
+%%
+\newif\ifmultinotes@blanks
+\newif\ifmultinotes@nosketches
+\newif\ifmultinotes@noproofs
+\newif\ifmultinotes@blankproofs
+\newif\ifmultinotes@noanswers
+\newif\ifmultinotes@blankanswers
+\DeclareOption{blanks}{\multinotes@blankstrue}
+\DeclareOption{nosketches}{\multinotes@nosketchestrue}
+\DeclareOption{noproofs}{\multinotes@noproofstrue}
+\DeclareOption{blankproofs}{\multinotes@blankproofstrue}
+\DeclareOption{noanswers}{\multinotes@noanswerstrue}
+\DeclareOption{blankanswers}{\multinotes@blankanswerstrue}
+\DeclareOption{tutor}{}
+\DeclareOption{student}{
+    \multinotes@blankstrue
+    \multinotes@blankproofstrue
+    \multinotes@noanswerstrue
+}
+\DeclareOption{compact}{
+    \multinotes@nosketchestrue
+    \multinotes@noproofstrue
+    \multinotes@noanswerstrue
+}
+\newif\ifmultinotes@slides
+\DeclareOption{slides}{\multinotes@slidestrue}
+\ProcessOptions*
+\relax
+\newcommand{\multinotes@babeloptions}{}
+\newcommand{\definelanguage}[4]{
+    \expandafter\def\csname multinotes@#1dec\endcsname{\multinotes@commonstyle\multinotes@remove}
+    \expandafter\def\csname #2\endcsname{\csname multinotes@#1dec\endcsname}
+    \expandafter\def\csname multinotes@#1cmd\endcsname##1{}
+    \expandafter\def\csname #3\endcsname{\csname multinotes@#1cmd\endcsname}
+    \expandafter\def\csname multinotes@#1envname\endcsname{#4}
+    \specialcomment{#4}{}{}
+    \excludecomment{#4}
+    \expandafter\def\csname multinotes@#1style\endcsname{}
+}
+\newcommand{\multinotes@selectlanguage}[1]{\@ifpackageloaded{babel}{\selectlanguage{#1}}{}}
+\newcounter{multinotes@numlangs}
+\newcommand{\includelanguage}[1]{
+    \g@addto@macro{\multinotes@babeloptions}{#1, }
+    \expandafter\newcounter{multinotes@#1number}
+    \expandafter\setcounter{multinotes@#1number}{\value{multinotes@numlangs}}
+    \stepcounter{multinotes@numlangs}
+    \expandafter\def\csname multinotes@#1dec\endcsname{%
+        \@ifundefined{switchcolumn}{}{\switchcolumn[\value{multinotes@#1number}]}%
+        \csname multinotes@#1style\endcsname%
+        \multinotes@selectlanguage{#1}%
+    }%
+    \expandafter\def\csname multinotes@#1cmd\endcsname##1{%
+        \@ifundefined{switchcolumn}{}{\switchcolumn[\value{multinotes@#1number}]}%
+        \csname multinotes@#1style\endcsname%
+        \multinotes@selectlanguage{#1}%
+        ##1%
+        \multinotes@commonstyle\xspace%
+    }%
+    \renewenvironment{\csname multinotes@#1envname\endcsname}{%
+        \@ifundefined{switchcolumn}{}{\switchcolumn[\value{multinotes@#1number}]}%
+        \csname multinotes@#1style\endcsname%
+        \multinotes@selectlanguage{#1}%
+    }{}%
+}%
+\newcommand{\setlanguagestyle}[2]{\expandafter\def\csname multinotes@#1style\endcsname{#2}}
+\newcommand{\multinotes@commonstyle}{\normalfont\color{\multinotes@CurrentColour}}
+\newcommand{\setcommonstyle}[1]{\renewcommand{\multinotes@commonstyle}{#1}}
+\newenvironment{multicols}{}{}
+\newcommand{\mcsync}{}
+
+\newcommand{\multicolson}{
+    \ifnum\value{multinotes@numlangs}>1
+        \renewenvironment{multicols}{\begin{paracol}{\themultinotes@numlangs}}{\end{paracol}}
+        \renewcommand{\mcsync}{\switchcolumn[0]*}
+    \fi
+}
+\newcommand{\multicolsoff}{
+    \renewenvironment{multicols}{}{}
+    \renewcommand{\mcsync}{}
+}
+\ifmultinotes@parallel
+    \multicolson
+\fi
+
+
+\newcommand{\mcspan}[1]{\multinotes@commonstyle%
+    \@ifundefined{switchcolumn}{}{%
+        \ifthenelse{\isempty{#1}}{%
+            \switchcolumn[0]%
+        }{%
+            \switchcolumn*[{#1}]%
+        }%
+    }%
+}
+\newcommand{\zz}{\multinotes@commonstyle}
+\def\multinotes@remove{\afterassignment\checkit\let\char=}%
+\def\checkit{%
+    \ifcat\char\null %
+        \let\char=\null%
+    \fi%
+    \ifcat\char\space%
+        \let\next=\multinotes@remove%
+    \else%
+        \ifcat\char x%
+            \let\next=\multinotes@remove%
+        \else%
+            \ifcat\char 1%
+                \let\next=\multinotes@remove%
+            \else%
+                \let\next=\relax%
+            \fi%
+        \fi%
+    \fi%
+    \next%
+ }%
+
+\newif\ifmultinotes@blanksopt
+\ifmultinotes@blanks\multinotes@blanksopttrue\fi
+\newcommand{\blanksoff}{\ifmultinotes@blanksopt\multinotes@blanksfalse\fi}
+\newcommand{\blankson}{\ifmultinotes@blanksopt\multinotes@blankstrue\fi}
+\newif\ifmultinotes@blankproofsopt
+\ifmultinotes@blankproofs\multinotes@blankproofsopttrue\fi
+\newif\ifmultinotes@noproofsopt
+\ifmultinotes@noproofs\multinotes@noproofsopttrue\fi
+\newcommand{\proofsoff}{
+\ifmultinotes@blankproofsopt\multinotes@blankproofsfalse\fi
+\ifmultinotes@noproofsopt\multinotes@blankproofsfalse\fi
+}
+\newcommand{\proofson}{
+\ifmultinotes@noproofsopt\multinotes@noproofstrue\fi
+\ifmultinotes@noproofsopt\multinotes@noproofstrue\fi
+}
+\newif\ifmultinotes@blankanswersopt
+\ifmultinotes@blankanswers\multinotes@blankanswersopttrue\fi
+\newif\ifmultinotes@noanswersopt
+\ifmultinotes@noanswers\multinotes@noanswersopttrue\fi
+\newcommand{\answersoff}{
+\ifmultinotes@blankanswersopt\multinotes@blankanswersfalse\fi
+\ifmultinotes@noanswersopt\multinotes@blankanswersfalse\fi
+}
+\newcommand{\answerson}{
+\ifmultinotes@noanswersopt\multinotes@noanswerstrue\fi
+\ifmultinotes@noanswersopt\multinotes@noanswerstrue\fi
+}
+\newif\ifmultinotes@blankmode
+\newif\ifmultinotes@imgblankmode
+\newcommand{\multinotes@BackgroundColour}{white}
+\newcommand{\multinotes@TextColour}{black}
+\newcommand{\multinotes@ShowColour}{black}
+\newcommand{\multinotes@ProofColour}{black}
+\newcommand{\multinotes@SolutionColour}{black}
+\newcommand{\multinotes@AnswerColour}{black}
+\AtBeginDocument{
+    \color{\multinotes@TextColour}
+    \pagecolor{\multinotes@BackgroundColour}
+}
+\newcommand{\textcolour}[1]{\renewcommand{\multinotes@TextColour}{#1}}
+\newcommand{\backgroundcolour}[1]{\renewcommand{\multinotes@BackgroundColour}{#1}}
+\newcommand{\showcolour}[1]{\renewcommand{\multinotes@ShowColour}{#1}}
+\newcommand{\proofcolour}[1]{\renewcommand{\multinotes@ProofColour}{#1}}
+\newcommand{\answercolour}[1]{\renewcommand{\multinotes@AnswerColour}{#1}}
+\newcommand{\multinotes@StretchFactor}{1}
+\newcommand{\multinotes@ImageStretchFactor}{1}
+\newcommand{\setstretchfactor}[1]{\renewcommand{\multinotes@StretchFactor}{#1}}
+\newcommand{\setimagestretchfactor}[1]{\renewcommand{\multinotes@ImageStretchFactor}{#1}}
+\newif\ifmultinotes@framedblankboxes
+\newif\ifmultinotes@framedproofs
+\newif\ifmultinotes@framedanswers
+\newcommand{\framedblankboxes}{\multinotes@framedblankboxestrue}
+\newcommand{\framedproofs}{\multinotes@framedproofstrue}
+\newcommand{\framedanswers}{\multinotes@framedanswerstrue}
+\newcommand{\setboxrule}[1]{\renewcommand{\multinotes@BoxRule}{#1}}
+\newcommand{\multinotes@CurrentColour}{black}
+\newcommand{\multinotes@CurrentBoxRule}{0pt}
+\newcommand{\multinotes@CurrentBoxTitle}{}
+\newcommand{\multinotes@BoxRule}{0pt}
+\newcommand{\multinotes@makeboxtitle}{%
+    \textcolor{\multinotes@TextColour}{\noindent\multinotes@CurrentBoxTitle}%
+}
+\newcommand\multinotes@inlineboxsize{normal}
+\newcommand{\inlineboxsize}[1]{\renewcommand{\multinotes@inlineboxsize}{#1}}
+\newcommand{\blank}[1]{#1}
+\ifmultinotes@blanks
+    \renewtcbox{\blank}{
+     on line,
+     size=\multinotes@inlineboxsize,
+     colback=\multinotes@BackgroundColour,
+     coltext={\ifmultinotes@blanks\multinotes@BackgroundColour\else\multinotes@ShowColour\fi},
+     boxrule={\ifmultinotes@blanks\multinotes@BoxRule\else0pt\fi}
+    }
+\fi
+\newcommand{\fillbox}[1]{#1}
+\ifmultinotes@blankanswers\else
+    \renewtcbox{\fillbox}{
+        on line,
+        size=\multinotes@inlineboxsize,
+        arc=0pt,
+        boxsep=1pt,left=10pt,right=10pt,
+        boxrule=\multinotes@BoxRule,
+        colback=\multinotes@BackgroundColour,
+        coltext={
+            \ifmultinotes@noanswers\multinotes@BackgroundColour
+            \else\ifmultinotes@blankanswers\multinotes@BackgroundColour
+            \else\multinotes@AnswerColour
+            \fi\fi
+        },
+    }
+\fi
+\newcommand{\ans}[1]{}
+\ifmultinotes@noanswers\else
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+    \renewtcbox{\ans}{
+        on line,
+        title=\sl\multinotes@CurrentBoxTitle,
+        coltitle=\multinotes@AnswerColour,
+        attach title to upper={\strut},
+        size=\multinotes@inlineboxsize,
+        arc=1pt,
+        boxsep=1pt,left=5pt,right=5pt,
+        boxrule=\multinotes@BoxRule,
+        colback=\multinotes@BackgroundColour,
+        coltext={
+            \ifmultinotes@blankanswers\multinotes@BackgroundColour
+            \else\ifmultinotes@noanswers\multinotes@BackgroundColour
+            \else\multinotes@AnswerColour
+            \fi\fi
+        },
+    }
+\fi
+\newenvironment{multinotes@tcbox}{%
+    \begin{tcolorbox}[
+        breakable,
+        notitle,
+        boxrule={\multinotes@BoxRule},
+        colback={\multinotes@BackgroundColour},
+        before={\smallskip},
+        after={},
+        coltext={\multinotes@CurrentColour},
+        skin=enhanced,
+        height fixed for = first and middle,
+        ignore nobreak,
+        before upper={\parindent0em\noindent},
+        flushleft upper
+    ]%
+    \begingroup
+}{
+    \endgroup
+    \end{tcolorbox}
+}
+\newenvironment{multinotes@basicbox}[1][]{
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}
+    \ifmultinotes@blankmode
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@BackgroundColour}
+        \setstretch{\multinotes@StretchFactor}
+        \begin{multinotes@tcbox}
+        \ifthenelse{\isempty{#1}}{}{\multinotes@makeboxtitle}
+    \else
+        \par
+        \ifthenelse{\isempty{#1}}{}{\multinotes@makeboxtitle}
+        \color{\multinotes@CurrentColour}
+    \fi
+}{
+    \ifmultinotes@blankmode
+        \end{multinotes@tcbox}
+        \setstretch{1}
+    \fi
+    \multinotes@blankmodefalse
+    \color{\multinotes@TextColour}
+}
+\newenvironment{multinotes@framedbox}[1][]{
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}
+    \ifmultinotes@blankmode
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@BackgroundColour}
+        \setstretch{\multinotes@StretchFactor}
+    \else
+        \color{\multinotes@CurrentColour}
+    \fi
+    \begin{multinotes@tcbox}
+    \ifthenelse{\isempty{#1}}{}{\multinotes@makeboxtitle}
+}{
+\mbox{}
+    \end{multinotes@tcbox}
+    \ifmultinotes@blankmode
+        \setstretch{1}
+    \fi
+    \multinotes@blankmodefalse
+    \renewcommand{\multinotes@CurrentColour}{\multinotes@TextColour}
+    \color{\multinotes@TextColour}
+}
+\newenvironment{blankbox}[1][]{
+    \def\boxtitle{}
+    \ifthenelse{\isempty{#1}}{}{\def\boxtitle{#1}}
+    \renewcommand{\multinotes@CurrentColour}{\multinotes@ShowColour}
+    \ifmultinotes@blanks
+        \multinotes@blankmodetrue
+    \fi
+    \ifmultinotes@framedblankboxes
+        \begin{multinotes@framedbox}[\sl\boxtitle]
+    \else
+        \begin{multinotes@basicbox}[\sl\boxtitle]
+    \fi
+}{%
+    \ifmultinotes@framedblankboxes
+        \end{multinotes@framedbox}
+    \else
+        \end{multinotes@basicbox}
+    \fi
+}
+\let\proof\@undefined
+\let\endproof\@undefined
+\ifmultinotes@noproofs
+    \excludecomment{proof}
+\else
+    \newenvironment{proof}[1][]{
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@ProofColour}
+        \ifmultinotes@blankproofs
+            \multinotes@blankmodetrue
+        \fi
+        \ifthenelse{\isempty{#1}}{
+            \ifmultinotes@framedproofs
+                \begin{multinotes@framedbox}[\sl\proofname]
+            \else
+                \begin{multinotes@basicbox}[\sl\proofname]
+            \fi
+        }{%
+            \ifmultinotes@framedproofs
+                \begin{multinotes@framedbox}[#1]
+            \else
+                \begin{multinotes@basicbox}[#1]
+            \fi
+        }
+    }{%
+        \ifmultinotes@framedproofs
+            \end{multinotes@framedbox}
+        \else
+            \end{multinotes@basicbox}
+        \fi
+    }
+\fi
+\let\answer\@undefined
+\let\endanswer\@undefined
+\ifmultinotes@noanswers
+    \excludecomment{answer}
+\else
+    \newenvironment{answer}[1][]{
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@AnswerColour}
+        \ifmultinotes@blankanswers
+            \multinotes@blankmodetrue
+        \fi
+        \ifthenelse{\isempty{#1}}{
+            \ifmultinotes@framedanswers
+                \begin{multinotes@framedbox}[\sl\answername]
+            \else
+                \begin{multinotes@basicbox}[\sl\answername]
+            \fi
+        }{%
+            \ifmultinotes@framedanswers
+                \begin{multinotes@framedbox}[#1]
+            \else
+                \begin{multinotes@basicbox}[#1]
+            \fi
+        }
+    }{
+        \ifmultinotes@framedanswers
+            \end{multinotes@framedbox}
+        \else
+            \end{multinotes@basicbox}
+        \fi
+    }
+\fi
+\floatstyle{boxed}
+\newfloat{sketch}{!ht}{losk}
+\newcommand{\sketchbox}[2][]{}
+\ifmultinotes@nosketches\else
+    \renewcommand{\sketchbox}[2][]{%
+    \begin{sketch}[H]%
+    \color{\multinotes@CurrentColour}
+    \vspace{1ex}\hspace{1ex}\textsl{\sketchname}%
+    \ifthenelse{\isempty{#1}}{}{ (#1)}\par%
+    \parbox{\textwidth}{\vspace{#2\textheight}}%
+    \end{sketch}%
+    }
+\fi
+\newcommand{\includevideo}[2][1]{\url{#2}}
+\floatstyle{boxed}
+\newfloat{video}{!ht}{lov}[section]
+\floatname{video}{Video}
+\captionsetup[video]{labelfont=normalfont}
+\let\oldincludegraphics=\includegraphics
+\renewcommand\includegraphics[2][]{
+    \ifmultinotes@blankmode
+        \scalebox{\multinotes@ImageStretchFactor}{
+            \phantom{\oldincludegraphics[#1]{#2}}
+        }
+    \else
+        \oldincludegraphics[#1]{#2}
+    \fi
+}
+\newlength\imageheight
+\newlength\imagewidth
+\newcommand{\includetwographics}[3][scale=1]{
+    \ifmultinotes@blankmode
+        \settoheight{\imageheight}{\oldincludegraphics[#1]{#2}}
+        \settowidth{\imagewidth}{\oldincludegraphics[#1]{#2}}
+        \scalebox{\multinotes@ImageStretchFactor}{
+            \oldincludegraphics[height=\imageheight,width=\imagewidth,keepaspectratio]{#3}
+        }
+    \else
+        \oldincludegraphics[#1]{#2}
+    \fi
+}
+\newcommand{\blanktikz}{%
+    \ifmultinotes@blankmode
+        \tikzset{every picture/.append style={
+            scale=\multinotes@ImageStretchFactor,
+            execute at end picture={
+                \draw[fill=\multinotes@BackgroundColour]
+                    (current bounding box.south west)
+                    rectangle
+                    (current bounding box.north east);
+        }}}
+    \fi
+}
+\providecommand{\framebreak}{}
+\ifmultinotes@slides
+    \renewcommand{\framebreak}{\newpage}
+    \geometry{a4paper,landscape}
+    \geometry{margin=20mm}
+    \renewcommand{\familydefault}{\sfdefault}
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage{lmodern}
+    \RequirePackage{exscale}
+    \RequirePackage{scrextend}
+    \changefontsizes{16pt}
+    \renewcommand\baselinestretch{1.1}
+    \setlength{\parskip}{0.5ex}
+    \setlength{\parindent}{0ex}
+    \addtolength{\topskip}{4ex}
+    \addtolength{\tabcolsep}{1ex}
+    \renewcommand{\arraystretch}{1.3}
+    \addtolength{\arraycolsep}{0.5ex}
+\fi
+\@ifclassloaded{exam}{}{%
+    \newcounter{question}
+    \newcounter{partno}
+    \newcounter{subpart}
+    \newcounter{choice}
+    \newcommand\questionlabel{\arabic{question}.}
+    \newcommand\partlabel{(\alph{partno})}
+    \newcommand\subpartlabel{(\roman{subpart})}
+    \newcommand{\choicechar}[1]{\def\choice@char{#1}}
+    \newcommand{\chosenchar}[1]{\def\chosen@char{#1}}
+    \newcommand{\checkboxchar}[1]{\def\checkbox@char{#1}}
+    \newcommand{\checkedchar}[1]{\def\checked@char{#1}}
+    \newcommand{\bigsquare}{\raisebox{0.5ex}{\fbox{\phantom{\rule{0.5ex}{0.5ex}}}}}
+    \choicechar{$\bigcirc$}
+    \chosenchar{$\text{\rlap{\,$\checkmark$}}\bigcirc$}
+    \checkboxchar{$\bigsquare$}
+    \checkedchar{$\rlap{\hskip 0.2ex\raisebox{0.2ex}{\checkmark}}{\bigsquare}$}
+    \newcommand\questionshook{}
+    \newcommand\partshook{}
+    \newcommand\subpartshook{}
+    \newcommand\choiceshook{}
+    \newcommand\checkboxeshook{}
+    \newenvironment{questions}{
+        \def\@queslevel{question}
+          \def\question{\@checkqueslevel{question}\item}
+          \def\subpart{\@checkqueslevel{subpart}\item}
+          \list{\questionlabel}{
+            \usecounter{question}
+            \settowidth{\leftmargin}{10.\hskip\labelsep}
+            \labelwidth\leftmargin\advance\labelwidth-\labelsep
+            \partopsep=0pt\questionshook
+        }}{\endlist}
+    \newenvironment{parts}{
+        \def\@queslevel{part}
+           \def\part{\@checkqueslevel{part}\item}
+        \list{\partlabel}{
+            \usecounter{partno}\def\makelabel##1{\hss\llap{##1}}
+            \settowidth{\leftmargin}{(m)\hskip\labelsep}
+            \labelwidth\leftmargin\advance\labelwidth-\labelsep
+            \topsep=0pt\partopsep=0pt\partshook
+        }}{\endlist}
+    \newenvironment{subparts}{
+        \def\@queslevel{subpart}
+        \list{\subpartlabel}{
+             \usecounter{subpart}\def\makelabel##1{\hss\llap{##1}}
+             \settowidth{\leftmargin}{vii.\hskip\labelsep}
+             \labelwidth\leftmargin\advance\labelwidth-\labelsep
+             \topsep=0pt\partopsep=0pt\subpartshook
+        }}{\endlist}
+    \newif\if@correctchoice
+    \newcommand\CorrectChoiceEmphasis[1]{\def\CorrectChoice@Emphasis{#1}}
+    \CorrectChoiceEmphasis{\bfseries}
+    \newenvironment{choices}{
+        \list{\choice@char}{
+            \usecounter{choice}
+            \settowidth{\leftmargin}{W.\hskip\labelsep}
+            \def\choice{\if@correctchoice\endgroup\fi\item}
+                \def\CorrectChoice{
+                \if@correctchoice\endgroup\fi
+                \ifmultinotes@noanswers\item
+                \else\ifmultinotes@blankanswers\item
+                \else
+                    \begingroup
+                    \@correctchoicetrue
+                    \CorrectChoice@Emphasis
+                    \item[\chosen@char]
+                \fi\fi
+            }
+            \let\correctchoice\CorrectChoice
+            \topsep=2pt\partopsep=0pt\choiceshook
+        }
+    }{\if@correctchoice\endgroup\fi\endlist}
+    \newenvironment{checkboxes}{
+        \list{\checkbox@char}{
+            \usecounter{choice}
+            \settowidth{\leftmargin}{W.\hskip\labelsep}
+            \def\choice{\if@correctchoice\endgroup\fi\item}
+            \def\CorrectChoice{
+                \if@correctchoice\endgroup\fi
+                \ifmultinotes@noanswers\item
+                \else\ifmultinotes@blankanswers\item
+                \else
+                    \begingroup
+                    \@correctchoicetrue
+                    \CorrectChoice@Emphasis
+                    \item[\checked@char]
+                   \fi\fi
+            }
+           \let\correctchoice\CorrectChoice
+           \topsep=2pt\partopsep=0pt\choiceshook
+         }
+    }{\if@correctchoice\endgroup\fi\endlist}
+    \def\@checkqueslevel#1{
+        \begingroup
+        \def\@temp{#1}
+        \ifx\@temp\@queslevel\null
+        \else\ClassError{multinotes}{
+            I found a #1 where I expected to find a \@queslevel
+            \MessageBreak
+        }{}
+        \fi\endgroup
+    }
+    \long\def\uplevel#1{
+        \par\bigskip\vbox{
+            \leftskip=\@totalleftmargin
+            \advance\leftskip-\leftmargin
+            \advance\@totalleftmargin-\leftmargin
+            \advance\linewidth\leftmargin
+            #1
+        }
+        \nobreak
+    }
+}
+\ifmultinotes@welsh\definelanguage{welsh}{cy}{cym}{cymraeg}\fi
+\ifmultinotes@breton\definelanguage{breton}{br}{bre}{brezhoneg}\fi
+\ifmultinotes@irish\definelanguage{irish}{ga}{gae}{gaelige}\fi
+\ifmultinotes@catalan\definelanguage{catalan}{ca}{cat}{catala}\fi
+\ifmultinotes@basque\definelanguage{basque}{eu}{eus}{euskara}\fi
+\ifmultinotes@english\definelanguage{english}{en}{eng}{english}\fi
+\ifmultinotes@french\definelanguage{french}{fr}{fra}{francais}\fi
+\ifmultinotes@spanish\definelanguage{spanish}{es}{spa}{espanol}\fi
+\endinput
+%%
+%% End of file `multinotes.sty'.

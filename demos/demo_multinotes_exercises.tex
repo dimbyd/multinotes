@@ -1,0 +1,360 @@
+% demo_multinotes_exercises.tex
+
+%\PassOptionsToPackage{noanswers}{multinotes}
+%\PassOptionsToPackage{blankanswers}{multinotes}
+
+%------------------------------------------------
+\documentclass{article}
+\usepackage[english,cleanlook]{isodate}
+%------------------------------------------------
+
+% paper
+\usepackage[margin=30mm, a4paper]{geometry}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+% multinotes
+\usepackage{multinotes}
+
+\textcolour{black}
+\backgroundcolour{yellow!4}
+\proofcolour{blue}
+\answercolour{red}
+\showcolour{purple}
+
+\framedblankboxes
+\framedproofs
+\framedanswers
+\setboxrule{0.5pt}
+
+\setstretchfactor{1.2} 
+\setimagestretchfactor{1}
+
+\usepackage{amsthm}
+\newtheorem{exercise}{\exercisename}
+\newtheorem{quiz}{\quizname}
+
+\loadbabel
+
+% images
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subfigure}
+\graphicspath{{./figures/}}
+\DeclareGraphicsExtensions{.png,.pdf,.jpeg,.jpg}
+
+% hyperref
+\usepackage[hidelinks]{hyperref}
+\setcounter{tocdepth}{2}
+
+% misc packages for testing
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+
+% document info
+\title{Typesetting lecture notes with {\tt multinotes.sty}}
+\author{D Evans}
+
+%------------------------------------------------
+\begin{document}
+\maketitle
+\tableofcontents
+
+\bigskip\hrule\bigskip
+
+\exercisename
+
+\bigskip\hrule\bigskip
+
+%----------------------------------------
+\subsection*{The {\tt answer} environment}
+%----------------------------------------
+
+\begin{itemize}
+\item {\tt blankanswers} replaces the content by blank space. 
+\item {\tt noanswers} removes the answer completely.
+\end{itemize}
+
+Here is an answer environment (might be removed).
+\begin{answer}
+\lipsum[1]
+\end{answer}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\begin{answer}
+\lipsum[1]
+\end{answer}
+\end{Verbatim}
+
+Here is an answer environment with a custom title (might be removed)
+
+\renewcommand{\answername}{\sl Answer}
+\begin{answer}
+\lipsum[1]
+\end{answer}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\renewcommand{\answername}{\sl Answer}
+\begin{answer}
+\lipsum[1]
+\end{answer}
+\end{Verbatim}
+
+%----------------------------------------
+\section{Questions, choices and checkboxes}
+%------------------------------------------------
+
+The package replicates the list environments found in {\tt exam.cls}, namely {\tt questions}, {\tt parts}, {\tt subparts}, {\tt choices} and {\tt checkboxes} and makes them responsive to {\tt blankanswers} and {\tt noanswers}. For example,
+
+\begin{Verbatim}[frame=single]
+\begin{exercise}\label{exe:demo}
+\begin{questions}
+\question What is $7\times 8$? \ans{54}
+\question State Pythagoras' theorem. \ans{$a^2+b^2=c^2$}
+\end{questions}
+\end{exercise}
+\end{Verbatim}
+
+%Here is a list of questions inside a (theorem-like) exercise environment.
+%\begin{exercise}
+%\begin{questions}
+%\item[] % for a linebreak
+%\question A
+%\begin{parts}
+%\part AA
+%\begin{subparts}
+%\subpart  AAA
+%\subpart AAB
+%\end{subparts}
+%\part AB
+%\begin{subparts}
+%\subpart  ABA
+%\subpart ABB
+%\end{subparts}
+%\end{parts}
+%\question B
+%\begin{parts}
+%\part BA
+%\begin{subparts}
+%\subpart  BAA
+%\subpart BAB
+%\end{subparts}
+%\part BB
+%\begin{subparts}
+%\subpart  BBA
+%\subpart BBB
+%\end{subparts}
+%\end{parts}
+%\end{questions}
+%\end{exercise}
+
+% exercise
+\bigskip
+Here is a list of questions inside a (theorem-like) exercise environment.
+\begin{exercise}
+
+\begin{questions}
+\item[] % for a linebreak
+\question First question.
+\begin{parts}
+\part First part \ans{Answer to first part.}
+\part Second part
+\begin{subparts}
+\subpart First subpart. \ans{Answer to first subpart.}
+\subpart Second subpart. \ans{Answer to second subpart.}
+\end{subparts}
+\part Third part \ans{Answer to third part.}
+\end{parts}
+\question Second question \ans{Answer to second question.}
+\end{questions}
+\end{exercise}
+%
+%--------------------
+\subsection{Multiple choice questions}
+
+In what year did Columbus first cross the Atlantic?
+\begin{choices}
+\choice 1490 
+\choice 1491 
+\correctchoice 1492 
+\choice 1493 
+\end{choices}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+In what year did Columbus first cross the Atlantic?
+\begin{choices}
+\choice 1490 
+\choice 1491 
+\correctchoice   1492 
+\choice 1493 
+\end{choices}
+\end{Verbatim}
+
+\subsection{Multiple answer questions}
+
+Which of the following were members of the Beatles?
+\begin{checkboxes}
+\correctchoice John
+\correctchoice Paul
+\correctchoice George
+\choice Zippy
+\end{checkboxes}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+Which of the following were members of the Beatles?
+\begin{checkboxes}
+\correctchoice John
+\correctchoice Paul
+\correctchoice George
+\choice Zippy
+\end{checkboxes}
+\end{Verbatim}
+
+\bigskip
+\begin{quiz}
+Here is a (theorem-like) quiz with a fill-the-blanks question, a true-or-false question, a multiple choice question, and a multiple answer question.
+
+\begin{Verbatim}[frame=single]
+Roses are \fillbox{red}, violets are \fillbox{blue}.
+\end{Verbatim}
+
+\begin{questions}
+% FIL
+\question
+Fill in the blanks: {\sl
+	Roses are \fillbox{red}, violets are \fillbox{blue}.
+}
+
+
+% TF question
+\question\label{qu:rain}
+The rain in Spain falls mainly on the plain.
+\begin{choices}
+\correctchoice True 		
+\choice False		
+\end{choices}
+
+% MC question
+\question\label{qu:america}
+In what year did Columbus first cross the Atlantic?
+\begin{choices}
+\choice 1490 
+\choice 1491 
+\correctchoice 1492
+\choice 1493 
+\end{choices}
+
+% MA question 
+\question\label{qu:beatles}
+Which of the following were members of the Beatles?
+\begin{checkboxes}
+\correctchoice John
+\correctchoice Paul
+\correctchoice George
+\choice Bingo
+\end{checkboxes}
+
+\end{questions}
+\end{quiz}
+
+%------------------------------------------------
+%\newpage
+\section{Prime numbers quiz}
+%------------------------------------------------
+
+\begin{questions}
+
+\question
+What are the prime factors of 42?
+\begin{choices}
+\choice $3\times 14$
+\correctchoice $2\times 3\times 7$
+\choice $2\times 21$
+\end{choices}
+
+\question
+What are the prime factors of 150?
+\begin{choices}
+\correctchoice $2\times 3\times 5\times 5$
+\choice $3\times 3\times 5\times 5$
+\choice $6\times 25$
+\end{choices}
+
+\question
+What is the LCM of 13 and 3?
+\begin{choices}
+\choice $13$
+\choice $3$
+\correctchoice $39$
+\end{choices}
+
+\question
+What is the HCF of 32 and 24?
+\begin{choices}
+\choice $2$
+\correctchoice $8$
+\choice $4$
+\end{choices}
+
+\question
+What is the LCM of 24 and 36?
+\begin{choices}
+\choice $12$
+\correctchoice $72$
+\choice $30$
+\end{choices}
+
+\question
+What is the HCF of 104 and 136?
+\begin{choices}
+\correctchoice $8$
+\choice $12$
+\choice $13$
+\end{choices}
+
+\question
+What is the HCF of $3\times 13$ and $2^2\times 13$?
+\begin{choices}
+\choice $9$
+\choice $17$
+\correctchoice $13$
+\end{choices}
+
+\newpage % << remove
+\question
+What is the LCM of $2^2\times 3^2\times 5$ and $2^3\times 3\times 5$?
+\begin{choices}
+\correctchoice $360$
+\choice $16\,120$
+\choice $30$
+\end{choices}
+
+\question
+What is the HCF of $2\times 5\times 13$ and $22\times 13$?
+\begin{choices}
+\choice $13$
+\correctchoice $26$
+\choice $52$
+\end{choices}
+
+\question
+Find the LCM of $3^2\times 11\times 13$ and $3\times 11^2$.
+\begin{choices}
+\choice $1287$
+\correctchoice $14\,157$
+\choice $429$
+\end{choices}
+
+\end{questions}
+
+
+%------------------------------------------------
+\end{document}
+%------------------------------------------------
+
+

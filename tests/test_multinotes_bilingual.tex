@@ -1,0 +1,241 @@
+% multinotes_test.tex
+% Test file for multinotes package
+
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[english,cleanlook]{isodate}
+
+% layout
+\usepackage{geometry}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.3em}
+\setlength\parsep{\parskip}
+
+% basic packages
+\usepackage{color}
+\usepackage{lipsum}
+
+% multinotes 
+\usepackage{multinotes}
+\definelanguage{welsh}{cy}{cym}{cymraeg}
+\definelanguage{breton}{br}{bre}{brezhoneg}
+\definelanguage{english}{en}{eng}{english}
+\loadbabel
+
+\setlanguagestyle{welsh}{\color{red}}
+\setlanguagestyle{breton}{\color{purple}}
+\setlanguagestyle{english}{\color{blue}\slshape}
+\setcommonstyle{\normalfont\color{black}}
+
+% monolingual
+%\geometry{a4paper,portrait,margin=25mm}
+%\includelanguage{welsh}
+%\includelanguage{english}
+
+% bilingual
+\geometry{a3paper,landscape,margin=30mm}
+\includelanguage{welsh}
+%\includelanguage{breton}
+\includelanguage{english}
+
+% multicols options
+\multicolson
+\columnsep=0.1\textwidth
+\columnseprule=0.4pt
+\raggedright
+\localcounter{section}
+\localcounter{enumi}
+
+% troubleshoot spaces
+%\renewcommand{\normalfont}{\ttfamily}
+
+% define bilingual commands
+% marked as the first and second languages in order of inclusion.
+% TODO: finish and move to multinotes.sty
+\newcommand{\bititle}[2]{\cym{#1}\eng{#2}}
+
+% meta information
+\title{\cym{Croeso}\eng{Welcome}}
+\author{DE}
+\date{\cym{\today}\eng{\today}}
+
+%\input{runtime-options}
+
+%--------------------
+\begin{document}
+\maketitle
+
+\makeatletter
+\@ifundefined{c@multinotes@welshnumber}{Welsh not included}{Welsh included}\\
+\@ifundefined{c@multinotes@bretonnumber}{Breton not included}{Breton included}\\
+\@ifundefined{c@multinotes@englishnumber}{English not included}{English included}
+\makeatother
+
+\bigskip\hrule\bigskip
+
+
+% abstracts 
+\begin{multicols}
+
+\begin{cymraeg}
+\begin{abstract}
+\lipsum[1]
+\end{abstract}
+\end{cymraeg}
+
+\begin{english}
+\begin{abstract}
+\lipsum[2]
+\end{abstract}
+\end{english}
+
+\end{multicols}
+
+\bigskip\hrule\bigskip
+
+\section{Sequential mode: declarations, macros and environments}
+
+1. \cy Helo \en Hello \zz
+
+\bigskip\hrule\bigskip
+
+2. {\cy Helo} {\en Hello} 
+
+\bigskip\hrule\bigskip
+
+3. {\cy Helo \en Hello}
+
+\bigskip\hrule\bigskip
+
+4. \cym{Helo} \eng{Hello}
+
+\bigskip\hrule\bigskip
+
+5.
+\begin{cymraeg}
+Helo
+\end{cymraeg}
+\begin{english}
+Hello
+\end{english}
+
+\bigskip\hrule\bigskip
+
+%------------------------------
+% test multicols 
+\section{{\tt multicols} and  {\tt\textbackslash mcspan}}
+
+%\multicolson
+
+\begin{multicols}
+
+\cy cy-dec \en en-dec \zz
+
+\cym{cym-mac} \eng{eng-mac} 
+
+\begin{cymraeg}
+cymraeg-env
+\end{cymraeg}
+
+\begin{english}
+englsh-env
+\end{english}
+
+\mcspan{\bigskip\lipsum[5]\bigskip} %
+
+\cy cy-dec2 \en en-dec2 \zz
+
+\cym{cym-mac2} \eng{eng-mac2} 
+
+\begin{cymraeg}
+cymraeg-env2
+\end{cymraeg}
+
+\begin{english}
+english-env2
+\end{english}
+
+\end{multicols}
+
+
+%------------------------------
+% test mcsync
+\section{{\tt\textbackslash mcsync}}
+
+\begin{multicols}
+
+\begin{cymraeg}
+\lipsum[1]
+\end{cymraeg}
+
+\begin{english}
+\lipsum[2]
+\end{english}
+
+\mcsync %
+
+\cym{\lipsum[5]}
+\eng{\lipsum[6]}
+
+\mcspan{\bigskip\lipsum[11]\bigskip} %
+
+\begin{cymraeg}
+\section{Cymraeg}
+\lipsum[5]
+\end{cymraeg}
+
+\begin{english}
+\section{English}
+\lipsum[6]
+\end{english}
+
+\mcsync % 
+
+\cym{\lipsum[7]}
+\eng{\lipsum[8]}
+
+\cym{\lipsum[9]}
+\eng{\lipsum[10]}
+
+\end{multicols}
+
+%------------------------------
+% multicols on/off
+\section{{\tt\textbackslash multicolson} and {\tt\textbackslash multicolsoff}}
+
+\multicolsoff
+\begin{multicols}
+\cym{\lipsum[11]}
+\eng{\lipsum[12]}
+\end{multicols}
+\multicolson
+
+%------------------------------
+% numbering
+\section{Numbering}
+
+\begin{multicols}
+%
+\begin{cymraeg}
+\subsection{Rhestri rhifedig}
+\begin{enumerate}
+\item Cyntaf
+\item Ail
+\item Trydydd
+\end{enumerate}
+\end{cymraeg}
+%
+\begin{english}
+\subsection{Numbered lists}
+\begin{enumerate}
+\item First
+\item Second
+\item Third
+\end{enumerate}
+\end{english}
+%
+\end{multicols}
+
+\end{document}
+
