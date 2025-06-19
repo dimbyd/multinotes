@@ -1,0 +1,1923 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2025 Cerigos <evansd8@cf.ac.uk>
+% -----------------------------------
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+% http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*readme>
+%----------------------------------------------------------------
+%Latex `multinotes` package
+%Tools for typesetting multilingual lecture notes and exercise sheets.
+%E-mail: evansd8@cf.ac.uk
+%Released under the LaTeX Project Public License v1.3c or later
+%See https://www.latex-project.org/lppl.txt
+%----------------------------------------------------------------
+%</readme>
+%
+%<*driver>
+\ProvidesFile{multinotes.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[2005/12/31]
+%<package>\ProvidesPackage{multinotes}
+%<*package>
+	[2025/12/31 v1.0 Multilingual lecture notes]
+%</package>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\setlength{\parindent}{0em}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{multinotes.dtx}
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1}{2024/12/31}{Initial version}
+%
+% \GetFileInfo{multinotes.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\!,\,}
+% \DoNotIndex{\begingroup,\endgroup,\catcode}
+% \DoNotIndex{\if,\ifx,\else,\fi}
+% \DoNotIndex{\def,\edef,\let}
+% \DoNotIndex{\newcommand,\newenvironment,\newcounter}
+% \DoNotIndex{\begin,\end,\list,\endlist,\item}
+% \DoNotIndex{\alph,\Alph,\bigcirc,\bigsquare}
+% \DoNotIndex{\arabic,\roman}
+% \DoNotIndex{\DeclareOption,\BODY}
+% \DoNotIndex{\hskip,\hss,\llap,\advance,\noindent,\enspace}
+% \DoNotIndex{\fbox,\edef,\let}
+% \DoNotIndex{\leftmargin,\leftskip,\linewidth}
+%
+% \title{The \textsf{multinotes} package\thanks{This document corresponds to \textsf{multinotes}~\fileversion, dated \filedate.}}
+% \author{Dafydd Evans\\\small Prifysgol Caerdydd / Cardiff University\\\texttt{\small evansd8@cf.ac.uk}\\}
+% \date{}
+% 
+% \maketitle
+%
+% \begin{center}
+% A package for typesetting multilingual lecture notes and exercise sheets. 
+% \end{center}
+%
+% \bigskip
+% \section{Introduction}
+%
+% This package provides tools for typesetting multilingual lecture notes in various formats, and adopts some macros and environments from the \texttt{exam} document class for producing exercise sheets and solutions.
+%
+% \bigskip
+% The package repository is at
+% \begin{center}
+% \texttt{https://github.com/dimbyd/multinotes/}
+% \end{center}
+%
+% \section{Package options}
+%
+% The following package options control the visibility of different elements.
+% \par\bigskip
+% \renewcommand{\arraystretch}{1.3}
+% \begin{tabular}{ll}
+% \hline
+% {\tt blanks}          & Remove contents of |\blank| cmds and |blankbox| envs.\\
+% \hline
+% {\tt noproofs}        & Exclude |\prf| commands and |proof| environments. \\
+% {\tt blankproofs}     & Replace |\prf| commands and |proof| environments by blanks. \\
+% \hline
+% {\tt noanswers}       & Exclude |\ans| commands and |answer| environments. \\
+% {\tt blankanswers}    & Replace |\ans| commands and |answer| environments by blanks. \\
+% \hline
+% {\tt nosketchboxes}    & Exclude sketch boxes. \\
+% \hline
+% {\tt student}         & Equivalent to choosing |blanks|, |blankproofs| and |noanswers|. \\
+% {\tt compact}         & Equivalent to choosing |noproofs|, |noanswers| and |nosketchboxes|. \\
+% \hline
+% \end{tabular}
+% \bigskip
+%
+% \section{Languages}
+%
+% A language is specified by its \textbf{babel} name.
+%
+% \bigskip
+% \DescribeMacro{\definelanguage}
+% Define the declaration name, macro name and environment name.
+%
+% \DescribeMacro{\setlanguagestyle}
+% Set language-specific style options (fonts, colours, etc.).
+%
+% \DescribeMacro{\includelanguage}
+% Include language in document.
+%
+% \bigskip
+% \DescribeEnv{multicols}
+% Environment for parallel typesetting (one column for each language).
+%
+% \DescribeMacro{\multicolson}
+% Switch parallel mode on.
+%
+% \DescribeMacro{\multicolsoff}
+% Switch parallel mode off.
+%
+% \DescribeMacro{\multicolspan}
+% Typeset content across all columns.
+%
+% \DescribeMacro{\multicolsync}
+% Synchronize columns.
+%
+% \bigskip
+% \section{Lecture notes}
+%
+% \DescribeEnv{blankbox}
+% Environment for displayed blank box (responds to |blanks| option).
+%
+% \DescribeMacro{\blank}
+% Command for inline blank box (responds to |blanks| option).
+% 
+% \bigskip
+% \DescribeMacro{\prf}
+% Command for inline proof box (responds to |blankproofs| and |noproofs|).
+%
+% \DescribeEnv{proof}
+% Environment for displayed proof box (responds to |blankproofs| and |noproofs|).
+%
+% \bigskip
+% \DescribeMacro{\ans}
+% Command for inline answer box (responds to |blankanswers| and |noanswers|).
+%
+% \DescribeEnv{answer}
+% Environment for displayed answer box (responds to |blankanswers| and |noanswers|).
+%
+% \DescribeMacro{\filin}
+% Command for inline fill-the-blank box (responds to |blankanswers|).
+%
+% \bigskip
+% \DescribeMacro{\textcolour}
+% Set default font colour.
+%
+% \DescribeMacro{\backgroundcolour}
+% Set background colour.
+%
+% \DescribeMacro{\showcolour}
+% Set font colour for blank boxes.
+%
+% \DescribeMacro{\proofcolour}
+% Set font colour for proof boxes.
+% 
+% \DescribeMacro{\setanswercolour}
+% Set font colour for answer boxes.
+%
+% \bigskip
+% \DescribeMacro{\framedblankboxes}
+% Choose framed blank boxes (inline and displayed).
+%
+% \DescribeMacro{\framedproofs}
+% Choose framed proof boxes (inline and displayed).
+%
+% \DescribeMacro{\framedanswers}
+% Choose framed answer boxes (inline and displayed).
+%
+% \DescribeMacro{\setboxrule}
+% Set width of the frame border (default is zero).
+%
+% \bigskip
+% \DescribeMacro{\setstretchfactor}
+% Set stretch factor for blank boxes (to accomodate handwriting).
+%
+% \DescribeMacro{\setimagestretchfactor}
+% Set stretch factor for blank images (to accomodate hand-drawing).
+%
+% \bigskip
+% \DescribeMacro{\blankson}
+% Override global |blanks| option.
+%
+% \DescribeMacro{\blanksoff}
+% Override global |blanks| option.
+%
+% \DescribeMacro{\blankproofson}
+% Override global |blankproofs| option.
+%
+% \DescribeMacro{\blankproofsoff}
+% Override global |blankproofs| option.
+%
+% \DescribeMacro{\noproofsoff}
+% Override global |noproofs| option.
+%
+% \DescribeMacro{\noproofson}
+% Override global |noproofs| option.
+%
+% \DescribeMacro{\blankanswersoff}
+% Override global |blankanswers| option.
+%
+% \DescribeMacro{\blankanswerson}
+% Override global |blankanswers| option.
+%
+% \DescribeMacro{\noanswersoff}
+% Override global |noanswers| option.
+%
+% \DescribeMacro{\noanswerson}
+% Override global |noanswers| option.
+%
+% \section{Exercises}
+%
+% Inspired by |exam.cls|, responds to |blankanswers| and |noanswers| options.
+%
+% \bigskip
+% \DescribeEnv{questions}
+% List environment for questions.
+%
+% \DescribeEnv{parts}
+% List environment for parts of a question. 
+%
+% \DescribeEnv{subparts}
+% List environment for subparts of a part. 
+%
+% \bigskip
+% \DescribeMacro{\question}
+% Item type for the |questions| environment.
+%
+% \DescribeMacro{\part}
+% Item type for the |parts| environment.
+%
+% \DescribeMacro{\subpart}
+% Item type for the |subparts| environment.
+%
+% \bigskip
+% \DescribeEnv{choices}
+% List environment for multiple choice options (choose one). 
+%
+% \DescribeEnv{checkboxes}
+% List environment for multiple answer options (choose zero or more).
+%
+% \bigskip
+% \DescribeMacro{\choice}
+% Item type for incorrect choices within |choices| and |checkboxes| environments.
+%
+% \DescribeMacro{\correctchoice}
+% Item type for correct choices within |choices| and |checkboxes| environments.
+%
+% \StopEventually{\PrintIndex}
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% \setlength{\parskip}{1ex}
+% \slshape
+%
+% Load packages
+%    \begin{macrocode}
+\RequirePackage{amsmath,amsfonts,amssymb,amsthm} 
+\RequirePackage{babel}
+\RequirePackage{caption}
+\RequirePackage{comment}
+\RequirePackage{etoolbox}
+\RequirePackage{float}
+\RequirePackage{graphicx}
+\RequirePackage{paracol}
+\RequirePackage{setspace}
+\RequirePackage{tcolorbox}
+\RequirePackage{tikz}
+\RequirePackage{titling}
+\RequirePackage{translations}
+\RequirePackage{trimspaces}
+\RequirePackage{xifthen}
+\RequirePackage{xstring}
+\RequirePackage{xspace}
+\RequirePackage{xparse}
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+%    \end{macrocode}
+%
+% \subsection{Options}
+%
+%    \begin{macrocode}
+\newif\ifmultinotes@blanks
+\newif\ifmultinotes@noproofs
+\newif\ifmultinotes@blankproofs
+\newif\ifmultinotes@noanswers
+\newif\ifmultinotes@blankanswers
+\newif\ifmultinotes@nosketchboxes
+\DeclareOption{blanks}{\multinotes@blankstrue}
+\DeclareOption{noproofs}{\multinotes@noproofstrue}
+\DeclareOption{blankproofs}{\multinotes@blankproofstrue}
+\DeclareOption{noanswers}{\multinotes@noanswerstrue}
+\DeclareOption{blankanswers}{\multinotes@blankanswerstrue}
+\DeclareOption{nosketchboxes}{\multinotes@nosketchboxestrue}
+\DeclareOption{student}{
+    \multinotes@blankstrue
+    \multinotes@blankproofstrue
+    \multinotes@noanswerstrue
+}
+\DeclareOption{compact}{
+    \multinotes@nosketchboxestrue
+    \multinotes@noproofstrue
+    \multinotes@noanswerstrue
+}
+\DeclareOption*{\PackageWarning{multinotes}{Unknown option ‘\CurrentOption’}}
+\ProcessOptions*
+\relax
+%    \end{macrocode}
+%
+% \subsection{Language tools}
+%
+% Languages are referenced by their {\bf babel} names. 
+%
+% \subsubsection{Define language}
+%
+% Usage example: |\definelanguage{welsh}{cy}{cym}{cymraeg}|
+% 
+% This will define
+% \begin{itemize}
+% \item three internal commands: |\@welshdec|, |\@welshcmd| and |\@welshenv|,
+% \item a declaration |\cy| which maps to |\@welshdec|,
+% \item a command |\cym{...}| which maps to |\@welshcmd{...}|,
+% \item an environment |`cymraeg'| which maps to environment |`@welshenv'|.
+% \item an environment |`welsh'| which also maps to environment |`@welshenv'|.
+% \end{itemize}
+%
+% \hrule
+% {\bf Important}. Language environments are implemented as |comment| environments, which allows us to discard their contents when required. The |comment| package documentation states that
+% \begin{quote}
+% ``... all text included between |\begin{comment}| and |\end{comment}| is discarded. The opening and closing commands should appear on a line of their own. No starting spaces, nothing after it.''
+% \end{quote}
+%
+% Failure to ensure this can produce some very confusing errors! This also applies to the |proof| and |answer| environments defined below.\vspace{0.5ex}
+% \hrule
+%
+%    \begin{macrocode}
+\newcommand{\multinotes@definelanguage}[4]{
+\ifcsname multinotes@#1dec\endcsname\else
+    \expandafter\def\csname multinotes@#1dec\endcsname{\multinotes@commonstyle\multinotes@remove}
+    \expandafter\def\csname #2\endcsname{\csname multinotes@#1dec\endcsname}
+    \expandafter\def\csname multinotes@#1cmd\endcsname##1{}
+    \expandafter\def\csname #3\endcsname{\csname multinotes@#1cmd\endcsname}
+    \expandafter\def\csname multinotes@#1envname\endcsname{#4}
+    \specialcomment{#4}{}{}
+    \excludecomment{#4}
+    \expandafter\def\csname multinotes@#1style\endcsname{}
+\fi
+}
+\newcommand{\definelanguage}[1]{\multinotes@definelanguage{#1}}
+%    \end{macrocode}
+%
+% \subsubsection{Include language}
+%
+% Usage example: |\includelanguage{welsh}|
+%
+% When a language is included it is assigned a sequential number, which specifies its column number in |paracol| environments. %The |\switchcolumn| command is only defined within \verb+paracol+ environments, and therefore provides a criterion to decide whether column switching is required.
+%    \begin{macrocode}
+\newcommand{\multinotes@mainlanguage}{UKenglish}
+\newcommand{\multinotes@selectlanguage}[1]{\@ifpackageloaded{babel}{\selectlanguage{#1}}{}}
+\AtBeginDocument{\multinotes@selectlanguage{\multinotes@mainlanguage}}
+
+\newcounter{multinotes@numlangs}
+
+\newcommand{\multinotes@activatelanguage}[1]{
+    \babelprovide[import]{#1}
+    \expandafter\newcounter{multinotes@#1number}
+    \expandafter\setcounter{multinotes@#1number}{\value{multinotes@numlangs}}
+    \stepcounter{multinotes@numlangs}
+    \ifnum\value{multinotes@numlangs}=1\relax
+        \renewcommand{\multinotes@mainlanguage}{#1}
+    \fi
+    \expandafter\def\csname multinotes@#1dec\endcsname{%
+        \@ifundefined{switchcolumn}{}{\switchcolumn[\value{multinotes@#1number}]}%
+        \csname multinotes@#1style\endcsname%
+        \multinotes@selectlanguage{#1}%
+    }%
+    \expandafter\def\csname multinotes@#1cmd\endcsname##1{%
+        \@ifundefined{switchcolumn}{}{\switchcolumn[\value{multinotes@#1number}]}%
+        \csname multinotes@#1style\endcsname%
+        \multinotes@selectlanguage{#1}%
+        ##1%
+        \multinotes@commonstyle\xspace%
+    }%
+    \renewenvironment{\csname multinotes@#1envname\endcsname}{%
+        \@ifundefined{switchcolumn}{}{\switchcolumn[\value{multinotes@#1number}]}%
+        \csname multinotes@#1style\endcsname%
+        \multinotes@selectlanguage{#1}%
+    }{}%
+}
+\newcommand{\includelanguage}[1]{
+    \multinotes@activatelanguage{#1}
+    \LoadDictionaryFor{#1}{translations-basic-dictionary}
+    \LoadDictionaryFor{#1}{translations-theorem-dictionary}
+}
+%    \end{macrocode}
+%
+% \subsubsection{Language style}
+%
+% Usage example: |\setlanguagestyle{welsh}{\slshape\color{red}}|
+%
+%    \begin{macrocode}
+\newcommand{\setlanguagestyle}[2]{\expandafter\def\csname multinotes@#1style\endcsname{#2}}
+\newcommand{\multinotes@commonstyle}{\normalfont\color{\multinotes@CurrentColour}}
+\newcommand{\setcommonstyle}[1]{\renewcommand{\multinotes@commonstyle}{#1}}
+%    \end{macrocode}
+%
+% \subsubsection{Parallel typesetting}
+%
+% The |multicols| environment is based entirely on the |paracol| environment from the package of the same name. The number of columns required is obtained from the |numlangs| counter value. Any option commands for |paracol| such as |\columnsep|, |\columnseprule| or |\localcounter| can be used directly.
+%
+%    \begin{macrocode}
+\newenvironment{multicols}{}{}
+\newcommand{\multicolsync}{}
+\newcommand{\multicolson}{
+    \ifnum\value{multinotes@numlangs}>1
+        \renewenvironment{multicols}{\begin{paracol}{\themultinotes@numlangs}}{\end{paracol}}
+        \renewcommand{\multicolsync}{\switchcolumn[0]*}
+    \fi
+}
+\newcommand{\multicolsoff}{
+    \renewenvironment{multicols}{}{}
+    \renewcommand{\multicolsync}{}
+}
+\AtBeginDocument{\multicolson}
+%    \end{macrocode}
+%
+% Mark content to span across columns (used inside |multicols| environments)
+%
+%    \begin{macrocode}
+\newcommand{\multicolspan}[1]{\multinotes@commonstyle%
+    \@ifundefined{switchcolumn}{}{%
+        \ifthenelse{\isempty{#1}}{%
+            \switchcolumn[0]%
+        }{%
+            \switchcolumn*[{#1}]%
+        }%
+    }%
+}
+%    \end{macrocode}
+%
+% \subsubsection{Declarations}
+%
+% Finally some dubious TeX magic for dealing with declarations: when a language is excluded, everything between a corresponding language declaration and the next non-alphabetical/numerical/space character should be removed. This doesn't always work as intended! 
+%    \begin{macrocode}
+\def\multinotes@remove{\afterassignment\checkit\let\char=}%
+\def\checkit{%
+    \ifcat\char\null %
+        \let\char=\null%
+    \fi%
+    \ifcat\char\space%
+        \let\next=\multinotes@remove%
+    \else%
+        \ifcat\char x%
+            \let\next=\multinotes@remove%
+        \else%
+            \ifcat\char 1%
+                \let\next=\multinotes@remove%
+            \else%
+	            \noexpand\char
+                \let\next=\relax%
+            \fi%
+        \fi%
+    \fi%
+    \next%
+ }%
+%    \end{macrocode}
+%
+% \subsection{Lecture notes}
+%
+% Macros for proof, answer and sketch names.
+%    \begin{macrocode}
+\def\multinotes@proofname{\GetTranslation{Proof}}
+\def\multinotes@answername{\GetTranslation{Answer}}
+\def\multinotes@sketchname{\GetTranslation{Sketch}}
+%    \end{macrocode}
+%
+% Global variables to allow local override of the \verb+blanks+, \verb+blankproofs+, \verb+noproofs+, \verb+blankanswers+ and \verb+noanswers+ options.
+%    \begin{macrocode}
+\newcommand{\blanksoff}{\multinotes@blanksfalse}
+\newcommand{\blankson}{\multinotes@blankstrue}
+\newcommand{\blankproofsoff}{\multinotes@blankproofsfalse}
+\newcommand{\blankproofson}{\multinotes@blankproofstrue}
+\newcommand{\blankanswersoff}{\multinotes@blankanswersfalse}
+\newcommand{\blankanswerson}{\multinotes@blankanswerstrue}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newcommand{\noproofsoff}{
+    \multinotes@noproofsfalse	
+    \multinotes@createProofEnvironment
+}
+\newcommand{\noproofson}{
+    \multinotes@noproofstrue
+    \excludecomment{proof}
+}
+\newcommand{\noanswersoff}{
+    \multinotes@noanswersfalse	
+    \multinotes@createAnswerEnvironment
+}
+\newcommand{\noanswerson}{
+    \multinotes@noanswerstrue
+    \excludecomment{answer}
+}
+%    \end{macrocode}
+%
+% Runtime flags
+%    \begin{macrocode}
+\newif\ifmultinotes@blankmode
+\newif\ifmultinotes@imgblankmode
+%    \end{macrocode}
+%
+% Colours
+%    \begin{macrocode}
+\newcommand{\multinotes@BackgroundColour}{white}
+\newcommand{\multinotes@TextColour}{black}
+\newcommand{\multinotes@ShowColour}{black}
+\newcommand{\multinotes@ProofColour}{black}
+\newcommand{\multinotes@SolutionColour}{black}
+\newcommand{\multinotes@AnswerColour}{black}
+\newcommand{\multinotes@QEDSymbol}{}
+\AtBeginDocument{
+    \color{\multinotes@TextColour}
+    \pagecolor{\multinotes@BackgroundColour}
+}
+%    \end{macrocode}
+%
+% Set colours
+%    \begin{macrocode}
+\newcommand{\textcolour}[1]{\renewcommand{\multinotes@TextColour}{#1}}
+\newcommand{\backgroundcolour}[1]{\renewcommand{\multinotes@BackgroundColour}{#1}}
+\newcommand{\showcolour}[1]{\renewcommand{\multinotes@ShowColour}{#1}}
+\newcommand{\proofcolour}[1]{\renewcommand{\multinotes@ProofColour}{#1}}
+\newcommand{\answercolour}[1]{\renewcommand{\multinotes@AnswerColour}{#1}}
+\newcommand{\includeqedsymbol}[1]{\renewcommand{\multinotes@QEDSymbol}{#1}}
+%    \end{macrocode}
+%
+% Stretch factors for blank boxes (to accomodate handwriting)
+%    \begin{macrocode}
+\newcommand{\multinotes@StretchFactor}{1}
+\newcommand{\multinotes@ImageStretchFactor}{1}
+\newcommand{\setstretchfactor}[1]{\renewcommand{\multinotes@StretchFactor}{#1}}
+\newcommand{\setimagestretchfactor}[1]{\renewcommand{\multinotes@ImageStretchFactor}{#1}}
+%    \end{macrocode}
+%
+% Frame options
+%    \begin{macrocode}
+\newif\ifmultinotes@framedblankboxes
+\newif\ifmultinotes@framedproofs
+\newif\ifmultinotes@framedanswers
+\newcommand{\framedblankboxes}{\multinotes@framedblankboxestrue}
+\newcommand{\framedblankboxesoff}{\multinotes@framedblankboxesfalse}
+\newcommand{\framedproofs}{\multinotes@framedproofstrue}
+\newcommand{\framedproofsoff}{\multinotes@framedproofsfalse}
+\newcommand{\framedanswers}{\multinotes@framedanswerstrue}
+\newcommand{\framedanswersoff}{\multinotes@framedanswersfalse}
+\newcommand{\setboxrule}[1]{\renewcommand{\multinotes@BoxRule}{#1}}
+%    \end{macrocode}
+%
+% Runtime parameters
+%    \begin{macrocode}
+\newcommand{\multinotes@CurrentColour}{black}
+\newcommand{\multinotes@CurrentBoxRule}{0pt}
+\newcommand{\multinotes@CurrentBoxTitle}{}
+\newcommand{\multinotes@BoxRule}{0pt}
+\newcommand{\multinotes@makeboxtitle}{%
+    \textcolor{\multinotes@TextColour}{\noindent\multinotes@CurrentBoxTitle}%
+}%
+%    \end{macrocode}
+%
+% \subsection{Inline boxes}
+%
+% Inline blankbox
+%    \begin{macrocode}
+\newcommand\multinotes@inlineboxsize{normal}
+\newcommand{\inlineboxsize}[1]{\renewcommand{\multinotes@inlineboxsize}{#1}}
+\newcommand{\blank}[1]{#1}
+\ifmultinotes@blanks
+    \renewtcbox{\blank}{
+     on line,
+     size=\multinotes@inlineboxsize,
+     colback=\multinotes@BackgroundColour,
+     coltext={\ifmultinotes@blanks\multinotes@BackgroundColour\else\multinotes@ShowColour\fi},
+     boxrule={\ifmultinotes@blanks\multinotes@BoxRule\else0pt\fi}
+    }
+\fi
+%    \end{macrocode}
+%
+% Inline fillbox
+%    \begin{macrocode}
+\newcommand{\fillbox}[1]{#1}
+\ifmultinotes@blankanswers\else
+    \renewtcbox{\fillbox}{
+        on line,
+        size=\multinotes@inlineboxsize,
+        arc=0pt,
+        boxsep=1pt,left=10pt,right=10pt,
+        boxrule=\multinotes@BoxRule,
+        colback=\multinotes@BackgroundColour,
+        coltext={
+            \ifmultinotes@noanswers\multinotes@BackgroundColour
+            \else\ifmultinotes@blankanswers\multinotes@BackgroundColour
+            \else\multinotes@AnswerColour
+            \fi\fi
+        },
+    }
+\fi
+%    \end{macrocode}
+%
+% Inline answer box
+%    \begin{macrocode}
+\newcommand{\ans}[1]{}
+\ifmultinotes@noanswers\else
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+    \renewtcbox{\ans}{
+        on line,
+        title=\sl\multinotes@CurrentBoxTitle,
+        coltitle=\multinotes@AnswerColour,
+        attach title to upper={\strut},
+        size=\multinotes@inlineboxsize,
+        arc=1pt,
+        boxsep=1pt,left=5pt,right=5pt,
+        boxrule=\multinotes@BoxRule,
+        colback=\multinotes@BackgroundColour,
+        coltext={
+            \ifmultinotes@blankanswers\multinotes@BackgroundColour
+            \else\ifmultinotes@noanswers\multinotes@BackgroundColour
+            \else\multinotes@AnswerColour
+            \fi\fi
+        },
+    }
+\fi
+%    \end{macrocode}
+%
+% Inline proof box
+%    \begin{macrocode}
+\newcommand{\prf}[1]{}
+\ifmultinotes@noproofs\else
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+    \renewtcbox{\prf}{
+        on line,
+        title=\sl\multinotes@CurrentBoxTitle,
+        coltitle=\multinotes@ProofColour,
+        attach title to upper={\strut},
+        size=\multinotes@inlineboxsize,
+        arc=1pt,
+        boxsep=1pt,left=5pt,right=5pt,
+        boxrule=\multinotes@BoxRule,
+        colback=\multinotes@BackgroundColour,
+        coltext={
+            \ifmultinotes@blankproofs\multinotes@BackgroundColour
+            \else\ifmultinotes@noproofs\multinotes@BackgroundColour
+            \else\multinotes@ProofColour
+            \fi\fi
+        },
+    }
+\fi
+%    \end{macrocode}
+%
+% \subsection{Display boxes}
+%
+% Box template
+%    \begin{macrocode}
+\newenvironment{multinotes@tcbox}{%
+    \begin{tcolorbox}[
+        breakable,
+        notitle,
+        boxrule={\multinotes@BoxRule},
+        colback={\multinotes@BackgroundColour},
+        before={\smallskip},
+        after={},
+        coltext={\multinotes@CurrentColour},
+        skin=enhanced jigsaw,
+        opacityback=0,
+        height fixed for = first and middle,
+        ignore nobreak,
+        before upper={\parindent0em\noindent},
+        flushleft upper
+    ]%
+    \begingroup
+}{
+    \endgroup
+    \end{tcolorbox}
+}
+%    \end{macrocode}
+%
+% Basic display box
+%    \begin{macrocode}
+\newenvironment{multinotes@basicbox}[1][]{
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}
+    \ifmultinotes@blankmode
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@BackgroundColour}
+        \setstretch{\multinotes@StretchFactor}
+        \begin{multinotes@tcbox}%
+        \ifthenelse{\isempty{#1}}{}{\multinotes@makeboxtitle}\quad
+    \else
+        \par
+        \ifthenelse{\isempty{#1}}{}{\multinotes@makeboxtitle}\quad
+        \color{\multinotes@CurrentColour}
+    \fi
+}{
+    \ifmultinotes@blankmode
+        \end{multinotes@tcbox}
+        \setstretch{1}
+    \fi
+    \multinotes@blankmodefalse
+    \color{\multinotes@TextColour}
+}
+%    \end{macrocode}
+%
+% Basic framed box
+%    \begin{macrocode}
+\newenvironment{multinotes@framedbox}[1][]{
+    \ifthenelse{\isempty{#1}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{}}%
+        {\renewcommand{\multinotes@CurrentBoxTitle}{#1}}
+    \ifmultinotes@blankmode
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@BackgroundColour}
+        \setstretch{\multinotes@StretchFactor}
+    \else
+        \color{\multinotes@CurrentColour}
+    \fi
+    \begin{multinotes@tcbox}%
+    \ifthenelse{\isempty{#1}}{}{\multinotes@makeboxtitle}
+}{
+	\mbox{}
+    \end{multinotes@tcbox}
+    \ifmultinotes@blankmode
+        \setstretch{1}
+    \fi
+    \multinotes@blankmodefalse
+    \renewcommand{\multinotes@CurrentColour}{\multinotes@TextColour}
+    \color{\multinotes@TextColour}
+}
+%    \end{macrocode}
+%
+% Blankbox
+%    \begin{macrocode}
+\newenvironment{blankbox}[1][]{
+    \def\boxtitle{}
+    \ifthenelse{\isempty{#1}}{}{\def\boxtitle{#1}}
+    \renewcommand{\multinotes@CurrentColour}{\multinotes@ShowColour}
+    \ifmultinotes@blanks
+        \multinotes@blankmodetrue
+    \fi
+    \ifmultinotes@framedblankboxes
+        \begin{multinotes@framedbox}[\sl\boxtitle]
+    \else
+        \begin{multinotes@basicbox}[\sl\boxtitle]
+    \fi
+}{%
+    \ifmultinotes@framedblankboxes
+        \end{multinotes@framedbox}
+    \else
+        \end{multinotes@basicbox}
+    \fi
+}
+%    \end{macrocode}
+%
+% Proof box 
+%    \begin{macrocode}
+\newcommand\multinotes@createProofEnvironment{
+    \let\proof\@undefined
+    \let\endproof\@undefined
+    \newenvironment{proof}[1][]{
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@ProofColour}
+        \ifmultinotes@blankproofs
+            \multinotes@blankmodetrue
+        \fi
+        \ifthenelse{\isempty{##1}}{
+            \ifmultinotes@framedproofs
+                \begin{multinotes@framedbox}[\sl\multinotes@proofname]
+            \else
+                \begin{multinotes@basicbox}[\sl\multinotes@proofname]
+            \fi
+        }{%
+            \ifmultinotes@framedproofs
+                \begin{multinotes@framedbox}[##1]
+            \else
+                \begin{multinotes@basicbox}[##1]
+            \fi
+        }
+    }{%
+    	\mbox{}\hfill\multinotes@QEDSymbol
+        \ifmultinotes@framedproofs
+            \end{multinotes@framedbox}
+        \else
+            \end{multinotes@basicbox}
+        \fi
+    }
+}
+\ifmultinotes@noproofs
+    \excludecomment{proof}
+\else
+	\multinotes@createProofEnvironment
+\fi
+%    \end{macrocode}
+%
+% \begin{environment}{answer}
+% Answer box 
+%    \begin{macrocode}
+\newcommand\multinotes@createAnswerEnvironment{
+    \let\answer\@undefined
+    \let\endanswer\@undefined
+    \newenvironment{answer}[1][]{
+        \renewcommand{\multinotes@CurrentColour}{\multinotes@AnswerColour}
+        \ifmultinotes@blankanswers
+            \multinotes@blankmodetrue
+        \fi
+        \ifthenelse{\isempty{##1}}{
+            \ifmultinotes@framedanswers
+                \begin{multinotes@framedbox}[\sl\multinotes@answername]%
+            \else
+                \begin{multinotes@basicbox}[\sl\multinotes@answername]%
+            \fi
+        }{%
+            \ifmultinotes@framedanswers
+                \begin{multinotes@framedbox}[##1]%
+            \else
+                \begin{multinotes@basicbox}[##1]%
+            \fi
+        }
+    }{
+    	\mbox{}\hfill\multinotes@QEDSymbol
+        \ifmultinotes@framedanswers
+            \end{multinotes@framedbox}
+        \else
+            \end{multinotes@basicbox}
+        \fi        
+    }
+}
+\ifmultinotes@noanswers
+    \excludecomment{answer}
+\else
+	\multinotes@createAnswerEnvironment
+\fi
+%    \end{macrocode}
+% \end{environment}
+%
+% \subsection{Floats for sketches, figures and videos}
+%
+% \begin{macro}{\sketchbox}
+% Custom float for sketch boxes. Caption |\sketchname| is always typeset at the top-left. Mandatory argument is the height of the box as a proportion of |\textheight|. Optional argument is a subtitle which appears in parentheses after the caption. 
+%    \begin{macrocode}
+\floatstyle{boxed}
+\newfloat{sketch}{!ht}{losk}
+\newcommand{\sketchbox}[2][]{}
+\ifmultinotes@nosketchboxes\else
+    \renewcommand{\sketchbox}[2][]{%
+	    \begin{sketch}[H]% 
+	    \color{\multinotes@CurrentColour}
+	    \vspace{1ex}\hspace{1ex}\textsl{\multinotes@sketchname}%
+	    \ifthenelse{\isempty{#1}}{}{ (#1)}\par%
+	    \parbox{\textwidth}{\vspace{#2\textheight}}%
+	    \end{sketch}%
+    }
+\fi
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\includevideo}
+% Custom float for videos
+%    \begin{macrocode}
+\newcommand{\includevideo}[2][1]{\url{#2}}
+\floatstyle{boxed}
+\newfloat{video}{!ht}{lov}[section]
+\floatname{video}{Video}
+\captionsetup[video]{labelfont=normalfont}
+%    \end{macrocode}
+% \end{macro}
+%
+% Make |\includegraphics| respond to blankmode
+%    \begin{macrocode}
+\let\oldincludegraphics=\includegraphics
+\renewcommand\includegraphics[2][]{
+    \ifmultinotes@blankmode
+        \scalebox{\multinotes@ImageStretchFactor}{
+            \phantom{\oldincludegraphics[#1]{#2}}
+        }
+    \else
+        \oldincludegraphics[#1]{#2}
+    \fi
+}
+%    \end{macrocode}
+%
+% Display alternative image under under blankmode
+%    \begin{macrocode}
+\newlength\imageheight
+\newlength\imagewidth
+\newcommand{\includetwographics}[3][scale=1]{
+    \ifmultinotes@blankmode
+        \settoheight{\imageheight}{\oldincludegraphics[#1]{#2}}
+        \settowidth{\imagewidth}{\oldincludegraphics[#1]{#2}}
+        \scalebox{\multinotes@ImageStretchFactor}{
+            \oldincludegraphics[height=\imageheight,width=\imagewidth,keepaspectratio]{#3}
+        }
+    \else
+        \oldincludegraphics[#1]{#2}
+    \fi
+}
+%    \end{macrocode}
+%
+% Replace tikz picture by blank box (moody)
+%    \begin{macrocode}
+\newcommand{\blanktikz}{%
+    \ifmultinotes@blankmode
+        \tikzset{every picture/.append style={
+            scale=\multinotes@ImageStretchFactor,
+            execute at end picture={
+                \draw[fill=\multinotes@BackgroundColour] 
+                    (current bounding box.south west) 
+                    rectangle 
+                    (current bounding box.north east);
+        }}}
+    \fi
+}
+%    \end{macrocode}
+%
+% \subsection{Exercise sheets (inspired by {\tt exam.cls})}
+%
+% Check  that exam.cls is not already loaded.
+%    \begin{macrocode}
+\@ifclassloaded{exam}{}{%
+%    \end{macrocode}
+%
+% Counters and labels
+%    \begin{macrocode}
+    \newcounter{question}
+    \newcounter{partno}
+    \newcounter{subpart}
+    \newcounter{choice}
+    \newcommand\questionlabel{\arabic{question}.}
+    \newcommand\partlabel{(\alph{partno})}
+    \newcommand\subpartlabel{(\roman{subpart})}
+%    \end{macrocode}
+%
+% Default symbols (circle for MC, square for MA)
+%    \begin{macrocode}
+    \newcommand{\choicechar}[1]{\def\choice@char{#1}}
+    \newcommand{\chosenchar}[1]{\def\chosen@char{#1}}
+    \newcommand{\checkboxchar}[1]{\def\checkbox@char{#1}}
+    \newcommand{\checkedchar}[1]{\def\checked@char{#1}}
+    \newcommand{\bigsquare}{\raisebox{0.5ex}{\fbox{\phantom{\rule{0.5ex}{0.5ex}}}}}
+    \choicechar{$\bigcirc$}
+    \chosenchar{$\text{\rlap{\,$\checkmark$}}\bigcirc$}
+    \checkboxchar{$\bigsquare$}
+    \checkedchar{$\rlap{\hskip 0.2ex\raisebox{0.2ex}{\checkmark}}{\bigsquare}$}
+%    \end{macrocode}
+%
+% Hooks for customisation
+%    \begin{macrocode}
+    \newcommand\questionshook{}
+    \newcommand\partshook{}
+    \newcommand\subpartshook{}
+    \newcommand\choiceshook{}
+    \newcommand\checkboxeshook{}
+%    \end{macrocode}
+%
+% Questions, parts and subparts.
+%    \begin{macrocode}
+    \newenvironment{questions}{
+        \def\@queslevel{question}
+          \def\question{\@checkqueslevel{question}\item}
+          \def\subpart{\@checkqueslevel{subpart}\item}
+          \list{\questionlabel}{
+            \usecounter{question}
+            \settowidth{\leftmargin}{10.\hskip\labelsep}
+            \labelwidth\leftmargin\advance\labelwidth-\labelsep
+            \partopsep=0pt\questionshook
+        }}{\endlist}
+    \newenvironment{parts}{
+        \def\@queslevel{part}
+           \def\part{\@checkqueslevel{part}\item}
+        \list{\partlabel}{
+            \usecounter{partno}\def\makelabel##1{\hss\llap{##1}}
+            \settowidth{\leftmargin}{(m)\hskip\labelsep}
+            \labelwidth\leftmargin\advance\labelwidth-\labelsep
+            \topsep=0pt\partopsep=0pt\partshook
+        }}{\endlist}
+    \newenvironment{subparts}{
+        \def\@queslevel{subpart}
+        \list{\subpartlabel}{
+             \usecounter{subpart}\def\makelabel##1{\hss\llap{##1}}
+             \settowidth{\leftmargin}{vii.\hskip\labelsep}
+             \labelwidth\leftmargin\advance\labelwidth-\labelsep
+             \topsep=0pt\partopsep=0pt\subpartshook
+        }}{\endlist}
+%    \end{macrocode}
+%
+% Choices and checkboxes (MC and MA)
+%    \begin{macrocode}
+    \newif\if@correctchoice
+    \newcommand\CorrectChoiceEmphasis[1]{\def\CorrectChoice@Emphasis{#1}}
+    \CorrectChoiceEmphasis{\bfseries}
+    \newenvironment{choices}{
+        \list{\choice@char}{
+            \usecounter{choice}
+            \settowidth{\leftmargin}{W.\hskip\labelsep}
+            \def\choice{\if@correctchoice\endgroup\fi\item}
+                \def\CorrectChoice{
+                \if@correctchoice\endgroup\fi
+                \ifmultinotes@noanswers\item
+                \else\ifmultinotes@blankanswers\item
+                \else
+                    \begingroup
+                    \@correctchoicetrue
+                    \CorrectChoice@Emphasis
+                    \item[\chosen@char]
+                \fi\fi
+            }
+            \let\correctchoice\CorrectChoice
+            \topsep=2pt\partopsep=0pt\choiceshook
+        }
+    }{\if@correctchoice\endgroup\fi\endlist}
+    \newenvironment{checkboxes}{
+        \list{\checkbox@char}{
+            \usecounter{choice}
+            \settowidth{\leftmargin}{W.\hskip\labelsep}
+            \def\choice{\if@correctchoice\endgroup\fi\item}
+            \def\CorrectChoice{
+                \if@correctchoice\endgroup\fi
+                \ifmultinotes@noanswers\item
+                \else\ifmultinotes@blankanswers\item
+                \else
+                    \begingroup
+                    \@correctchoicetrue
+                    \CorrectChoice@Emphasis
+                    \item[\checked@char]
+                   \fi\fi
+            }
+           \let\correctchoice\CorrectChoice
+           \topsep=2pt\partopsep=0pt\choiceshook
+         }
+    }{\if@correctchoice\endgroup\fi\endlist}
+%    \end{macrocode}
+%
+% Nesting check and indentation trick.
+%    \begin{macrocode}
+    \def\@checkqueslevel#1{
+        \begingroup
+        \def\@temp{#1}
+        \ifx\@temp\@queslevel\null
+        \else\ClassError{multinotes}{
+            I found a #1 where I expected to find a \@queslevel
+            \MessageBreak
+        }{}
+        \fi\endgroup
+    }
+    \long\def\uplevel#1{
+        \par\bigskip\vbox{
+            \leftskip=\@totalleftmargin
+            \advance\leftskip-\leftmargin
+            \advance\@totalleftmargin-\leftmargin
+            \advance\linewidth\leftmargin
+            #1
+        }
+        \nobreak
+    }
+%    \end{macrocode}
+%
+% End |\@ifclassloaded{exam}| check.
+%
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \iffalse
+%<*basic-english>
+\ProvideDictionaryFor{English}{translations-basic-dictionary}
+\ProvideDictTranslation{Abstract}{Abstract}
+\ProvideDictTranslation{Addresses}{Addresses}
+\ProvideDictTranslation{addresses}{addresses}
+\ProvideDictTranslation{Address}{Address}
+\ProvideDictTranslation{address}{address}
+\ProvideDictTranslation{and}{and}
+\ProvideDictTranslation{Appendix}{Appendix}
+\ProvideDictTranslation{Authors}{Authors}
+\ProvideDictTranslation{authors}{authors}
+\ProvideDictTranslation{Author}{Author}
+\ProvideDictTranslation{author}{author}
+\ProvideDictTranslation{Bibliography}{Bibliography}
+\ProvideDictTranslation{cc}{cc}
+\ProvideDictTranslation{Chapters}{Chapters}
+\ProvideDictTranslation{chapters}{chapters}
+\ProvideDictTranslation{Chapter}{Chapter}
+\ProvideDictTranslation{chapter}{chapter}
+\ProvideDictTranslation{Conclusion}{Conclusion}
+\ProvideDictTranslation{conclusion}{conclusion}
+\ProvideDictTranslation{Contents}{Contents}
+\ProvideDictTranslation{Continuation}{Continuation}
+\ProvideDictTranslation{continuation}{continuation}
+\ProvideDictTranslation{cont}{cont}
+\ProvideDictTranslation{encl (plural)}{encl}
+\ProvideDictTranslation{encl (singular)}{encl}
+\ProvideDictTranslation{encl}{encl}
+\ProvideDictTranslation{Figures}{Figures}
+\ProvideDictTranslation{figures}{figures}
+\ProvideDictTranslation{Figure}{Figure}
+\ProvideDictTranslation{figure}{figure}
+\ProvideDictTranslation{From}{From}
+\ProvideDictTranslation{from}{from}
+\ProvideDictTranslation{Glossary}{Glossary}
+\ProvideDictTranslation{Index}{Index}
+\ProvideDictTranslation{Introduction}{Introduction}
+\ProvideDictTranslation{introduction}{introduction}
+\ProvideDictTranslation{List of Figures and Tables}{List of Figures and Tables}
+\ProvideDictTranslation{List of Figures}{List of Figures}
+\ProvideDictTranslation{List of Tables}{List of Tables}
+\ProvideDictTranslation{or}{or}
+\ProvideDictTranslation{Outline}{Outline}
+\ProvideDictTranslation{Overview}{Overview}
+\ProvideDictTranslation{Pages}{Pages}
+\ProvideDictTranslation{pages}{pages}
+\ProvideDictTranslation{Page}{Page}
+\ProvideDictTranslation{page}{page}
+\ProvideDictTranslation{Paragraphs}{Paragraphs}
+\ProvideDictTranslation{paragraphs}{paragraphs}
+\ProvideDictTranslation{Paragraph}{Paragraph}
+\ProvideDictTranslation{paragraph}{paragraph}
+\ProvideDictTranslation{Parts}{Parts}
+\ProvideDictTranslation{parts}{parts}
+\ProvideDictTranslation{Part}{Part}
+\ProvideDictTranslation{part}{part}
+\ProvideDictTranslation{Preface}{Preface}
+\ProvideDictTranslation{Proofs}{Proofs}
+\ProvideDictTranslation{proofs}{proofs}
+\ProvideDictTranslation{Proof}{Proof}
+\ProvideDictTranslation{proof}{proof}
+\ProvideDictTranslation{References}{References}
+\ProvideDictTranslation{Related work}{Related work}
+\ProvideDictTranslation{Related Work}{Related Work}
+\ProvideDictTranslation{Sections}{Sections}
+\ProvideDictTranslation{sections}{sections}
+\ProvideDictTranslation{Section}{Section}
+\ProvideDictTranslation{section}{section}
+\ProvideDictTranslation{See also}{See also}
+\ProvideDictTranslation{see also}{see also}
+\ProvideDictTranslation{See}{See}
+\ProvideDictTranslation{see}{see}
+\ProvideDictTranslation{Sketch of Proofs}{Sketch of Proofs}
+\ProvideDictTranslation{Sketch of proofs}{Sketch of proofs}
+\ProvideDictTranslation{Sketch of Proof}{Sketch of Proof}
+\ProvideDictTranslation{Sketch of proof}{Sketch of proof}
+\ProvideDictTranslation{Subsections}{Subsections}
+\ProvideDictTranslation{subsections}{subsections}
+\ProvideDictTranslation{Subsection}{Subsection}
+\ProvideDictTranslation{subsection}{subsection}
+\ProvideDictTranslation{Summary}{Summary}
+\ProvideDictTranslation{Tables}{Tables}
+\ProvideDictTranslation{tables}{tables}
+\ProvideDictTranslation{Table}{Table}
+\ProvideDictTranslation{table}{table}
+\ProvideDictTranslation{To}{To}
+\ProvideDictTranslation{to}{to}
+
+\ProvideDictTranslation{Monday}{Monday}
+\ProvideDictTranslation{Tuesday}{Tuesday}
+\ProvideDictTranslation{Wednesday}{Wednesday}
+\ProvideDictTranslation{Thursday}{Thursday}
+\ProvideDictTranslation{Friday}{Friday}
+\ProvideDictTranslation{Saturday}{Saturday}
+\ProvideDictTranslation{Sunday}{Sunday}
+
+\ProvideDictTranslation{January}{January}
+\ProvideDictTranslation{February}{February}
+\ProvideDictTranslation{March}{March}
+\ProvideDictTranslation{April}{April}
+\ProvideDictTranslation{May}{May}
+\ProvideDictTranslation{June}{June}
+\ProvideDictTranslation{July}{July}
+\ProvideDictTranslation{August}{August}
+\ProvideDictTranslation{September}{September}
+\ProvideDictTranslation{October}{October}
+\ProvideDictTranslation{November}{November}
+\ProvideDictTranslation{December}{December}
+%</basic-english>
+%<*theorem-english>
+\ProvideDictionaryFor{English}{translations-theorem-dictionary}
+\ProvideDictTranslation{Answers}{Answers}
+\ProvideDictTranslation{answers}{answers}
+\ProvideDictTranslation{Answer}{Answer}
+\ProvideDictTranslation{answer}{answer}
+\ProvideDictTranslation{Answerabb}{Ans.}
+\ProvideDictTranslation{answerabb}{ans.}
+\ProvideDictTranslation{Checks}{Checks}
+\ProvideDictTranslation{checks}{checks}
+\ProvideDictTranslation{Check}{Check}
+\ProvideDictTranslation{check}{check}
+\ProvideDictTranslation{Claims}{Claims}
+\ProvideDictTranslation{claims}{claims}
+\ProvideDictTranslation{Claim}{Claim}
+\ProvideDictTranslation{claim}{claim}
+\ProvideDictTranslation{Comments}{Comments}
+\ProvideDictTranslation{comments}{comments}
+\ProvideDictTranslation{Comment}{Comment}
+\ProvideDictTranslation{comment}{comment}
+\ProvideDictTranslation{Conditions}{Conditions}
+\ProvideDictTranslation{conditions}{conditions}
+\ProvideDictTranslation{Condition}{Condition}
+\ProvideDictTranslation{condition}{condition}
+\ProvideDictTranslation{Conjectures}{Conjectures}
+\ProvideDictTranslation{conjectures}{conjectures}
+\ProvideDictTranslation{Conjecture}{Conjecture}
+\ProvideDictTranslation{conjecture}{conjecture}
+\ProvideDictTranslation{Continued}{Continued}
+\ProvideDictTranslation{continued}{continued}
+\ProvideDictTranslation{Continuedabb}{Cont.}
+\ProvideDictTranslation{continuedabb}{cont.}
+\ProvideDictTranslation{Corollaries}{Corollaries}
+\ProvideDictTranslation{corollaries}{corollaries}
+\ProvideDictTranslation{Corollary}{Corollary}
+\ProvideDictTranslation{corollary}{corollary}
+\ProvideDictTranslation{Definitions}{Definitions}
+\ProvideDictTranslation{definitions}{definitions}
+\ProvideDictTranslation{Definition}{Definition}
+\ProvideDictTranslation{definition}{definition}
+\ProvideDictTranslation{Examples}{Examples}
+\ProvideDictTranslation{examples}{examples}
+\ProvideDictTranslation{Example}{Example}
+\ProvideDictTranslation{example}{example}
+\ProvideDictTranslation{Exercises}{Exercises}
+\ProvideDictTranslation{exercises}{exercises}
+\ProvideDictTranslation{Exercise}{Exercise}
+\ProvideDictTranslation{exercise}{exercise}
+\ProvideDictTranslation{Lemmas}{Lemmas}
+\ProvideDictTranslation{lemmas}{lemmas}
+\ProvideDictTranslation{Lemma}{Lemma}
+\ProvideDictTranslation{lemma}{lemma}
+\ProvideDictTranslation{Observations}{Observations}
+\ProvideDictTranslation{observations}{observations}
+\ProvideDictTranslation{Observation}{Observation}
+\ProvideDictTranslation{observation}{observation}
+\ProvideDictTranslation{Problems}{Problems}
+\ProvideDictTranslation{problems}{problems}
+\ProvideDictTranslation{Problem}{Problem}
+\ProvideDictTranslation{problem}{problem}
+\ProvideDictTranslation{Proofs}{Proofs}
+\ProvideDictTranslation{proofs}{proofs}
+\ProvideDictTranslation{Proof}{Proof}
+\ProvideDictTranslation{proof}{proof}
+\ProvideDictTranslation{Proofabb}{Prf.}
+\ProvideDictTranslation{proofabb}{prf.}
+\ProvideDictTranslation{Propositions}{Propositions}
+\ProvideDictTranslation{propositions}{propositions}
+\ProvideDictTranslation{Proposition}{Proposition}
+\ProvideDictTranslation{proposition}{proposition}
+\ProvideDictTranslation{Questions}{Questions}
+\ProvideDictTranslation{questions}{questions}
+\ProvideDictTranslation{Question}{Question}
+\ProvideDictTranslation{question}{question}
+\ProvideDictTranslation{Remarks}{Remarks}
+\ProvideDictTranslation{remarks}{remarks}
+\ProvideDictTranslation{Remark}{Remark}
+\ProvideDictTranslation{remark}{remark}
+\ProvideDictTranslation{Sketches}{Sketches}
+\ProvideDictTranslation{sketches}{sketches}
+\ProvideDictTranslation{Sketch}{Sketch}
+\ProvideDictTranslation{sketch}{sketch}
+\ProvideDictTranslation{Solutions}{Solutions}
+\ProvideDictTranslation{solutions}{solutions}
+\ProvideDictTranslation{Solution}{Solution}
+\ProvideDictTranslation{solution}{solution}
+\ProvideDictTranslation{Solutionabb}{Sol.}
+\ProvideDictTranslation{solutionabb}{sol.}
+\ProvideDictTranslation{Summaries}{Summaries}
+\ProvideDictTranslation{summaries}{summaries}
+\ProvideDictTranslation{Summary}{Summary}
+\ProvideDictTranslation{summary}{summary}
+\ProvideDictTranslation{Theorems}{Theorems}
+\ProvideDictTranslation{theorems}{theorems}
+\ProvideDictTranslation{Theorem}{Theorem}
+\ProvideDictTranslation{theorem}{theorem}
+%</theorem-english>
+%
+%<*basic-welsh>
+\ProvideDictionaryFor{Welsh}{translations-basic-dictionary}
+\ProvideDictTranslation{Abstract}{Crynodeb}
+\ProvideDictTranslation{Addresses}{Cyfeiriadau}
+\ProvideDictTranslation{addresses}{cyfeiriadau}
+\ProvideDictTranslation{Address}{Cyfeiriad}
+\ProvideDictTranslation{address}{cyfeiriad}
+\ProvideDictTranslation{and}{a}
+\ProvideDictTranslation{Appendix}{Atodiad}
+\ProvideDictTranslation{Authors}{Awduron}
+\ProvideDictTranslation{authors}{awduron}
+\ProvideDictTranslation{Author}{Awdur}
+\ProvideDictTranslation{author}{awdur}
+\ProvideDictTranslation{Bibliography}{Llyfryddiaeth}
+\ProvideDictTranslation{cc}{cop\"\i au}
+\ProvideDictTranslation{Chapters}{Penodau}
+\ProvideDictTranslation{chapters}{penodau}
+\ProvideDictTranslation{Chapter}{Pennod}
+\ProvideDictTranslation{chapter}{pennod}
+\ProvideDictTranslation{Conclusion}{Casgliad}
+\ProvideDictTranslation{conclusion}{casglisd}
+\ProvideDictTranslation{Contents}{Cynnwys}
+\ProvideDictTranslation{Continuation}{Parhad}
+\ProvideDictTranslation{continuation}{parhad}
+\ProvideDictTranslation{cont}{parh.}
+\ProvideDictTranslation{encl (plural)}{amgae\"{e}dig}
+\ProvideDictTranslation{encl (singular)}{amgae\"{e}dig}
+\ProvideDictTranslation{encl}{amgae\"{e}dig}
+\ProvideDictTranslation{Figures}{Ffigurau}
+\ProvideDictTranslation{figures}{ffigurau}
+\ProvideDictTranslation{Figure}{Ffigur}
+\ProvideDictTranslation{figure}{ffigur}
+\ProvideDictTranslation{From}{Oddi wrth}
+\ProvideDictTranslation{from}{oddi wrth}
+\ProvideDictTranslation{Glossary}{Rhestr termau}
+\ProvideDictTranslation{Index}{Mynegai}
+\ProvideDictTranslation{Introduction}{Cyflwyniad}
+\ProvideDictTranslation{introduction}{cyflwyniad}
+\ProvideDictTranslation{List of Figures and Tables}{Rhestr ffigurau a thablau}
+\ProvideDictTranslation{List of Figures}{Rhestr ffigurau}
+\ProvideDictTranslation{List of Tables}{Rhestr tablau}
+\ProvideDictTranslation{or}{neu}
+\ProvideDictTranslation{Outline}{Amlinelliad}
+\ProvideDictTranslation{Overview}{Trosolwg}
+\ProvideDictTranslation{Pages}{Tudalennau}
+\ProvideDictTranslation{pages}{tudalennau}
+\ProvideDictTranslation{Page}{Tudalen}
+\ProvideDictTranslation{page}{tudalen}
+\ProvideDictTranslation{Paragraphs}{Paragraffau}
+\ProvideDictTranslation{paragraphs}{paragraffau}
+\ProvideDictTranslation{Paragraph}{Paragraff}
+\ProvideDictTranslation{paragraph}{paragraff}
+\ProvideDictTranslation{Parts}{Rhannau}
+\ProvideDictTranslation{parts}{rhannau}
+\ProvideDictTranslation{Part}{Rhan}
+\ProvideDictTranslation{part}{rhan}
+\ProvideDictTranslation{Preface}{Rhagair}
+\ProvideDictTranslation{Proofs}{Profion}
+\ProvideDictTranslation{proofs}{profion}
+\ProvideDictTranslation{Proof}{Prawf}
+\ProvideDictTranslation{proof}{prawf}
+\ProvideDictTranslation{References}{Cyfeiriadau}
+\ProvideDictTranslation{Related work}{Gwaith cysylltiedig}
+\ProvideDictTranslation{Related Work}{Gwaith Cysylltiedig}
+\ProvideDictTranslation{Sections}{Adrannau}
+\ProvideDictTranslation{sections}{adrannau}
+\ProvideDictTranslation{Section}{Adran}
+\ProvideDictTranslation{section}{adran}
+\ProvideDictTranslation{See also}{Gweler hefyd}
+\ProvideDictTranslation{see also}{gweler hefyd}
+\ProvideDictTranslation{See}{Gweler}
+\ProvideDictTranslation{see}{gweler}
+\ProvideDictTranslation{Sketch of Proofs}{Bras Brofion}
+\ProvideDictTranslation{Sketch of proofs}{Bras brofion}
+\ProvideDictTranslation{Sketch of Proof}{Bras Brawf}
+\ProvideDictTranslation{Sketch of proof}{Bras brawf}
+\ProvideDictTranslation{Subsections}{Isadrannau}
+\ProvideDictTranslation{subsections}{isadrannau}
+\ProvideDictTranslation{Subsection}{Isadran}
+\ProvideDictTranslation{subsection}{isadran}
+\ProvideDictTranslation{Summary}{Crynodeb}
+\ProvideDictTranslation{Tables}{Tablau}
+\ProvideDictTranslation{tables}{tablau}
+\ProvideDictTranslation{Table}{Tabl}
+\ProvideDictTranslation{table}{tabl}
+\ProvideDictTranslation{To}{At}
+\ProvideDictTranslation{to}{at}
+
+\ProvideDictTranslation{Monday}{dydd Llun}
+\ProvideDictTranslation{Tuesday}{dydd Mawrth}
+\ProvideDictTranslation{Wednesday}{dydd Mercher}
+\ProvideDictTranslation{Thursday}{dydd Iau}
+\ProvideDictTranslation{Friday}{dydd Gwener}
+\ProvideDictTranslation{Saturday}{dydd Sadwrn}
+\ProvideDictTranslation{Sunday}{dydd Sul}
+
+\ProvideDictTranslation{January}{Ionawr}
+\ProvideDictTranslation{February}{Chwefror}
+\ProvideDictTranslation{March}{Mawrth}
+\ProvideDictTranslation{April}{Ebrill}
+\ProvideDictTranslation{May}{Mai}
+\ProvideDictTranslation{June}{Mehefin}
+\ProvideDictTranslation{July}{Gorffennaf}
+\ProvideDictTranslation{August}{Awst}
+\ProvideDictTranslation{September}{Medi}
+\ProvideDictTranslation{October}{Hydref}
+\ProvideDictTranslation{November}{Tachwedd}
+\ProvideDictTranslation{December}{Rhagfyr}
+%</basic-welsh>
+%
+%<*theorem-welsh>
+\ProvideDictionaryFor{Welsh}{translations-theorem-dictionary}
+\ProvideDictTranslation{Answers}{Atebion}
+\ProvideDictTranslation{answers}{atebion}
+\ProvideDictTranslation{Answer}{Ateb}
+\ProvideDictTranslation{answer}{ateb}
+\ProvideDictTranslation{Answerabb}{Atb.}
+\ProvideDictTranslation{answerabb}{atb.}
+\ProvideDictTranslation{Checks}{Gwiriadau}
+\ProvideDictTranslation{checks}{gwiriadau}
+\ProvideDictTranslation{Check}{Gwiriad}
+\ProvideDictTranslation{check}{gwiriad}
+\ProvideDictTranslation{Claims}{Honiadau}
+\ProvideDictTranslation{claims}{honiadau}
+\ProvideDictTranslation{Claim}{Honiad}
+\ProvideDictTranslation{claim}{honiad}
+\ProvideDictTranslation{Comments}{Sylwadau}
+\ProvideDictTranslation{comments}{sylwadau}
+\ProvideDictTranslation{Comment}{Sylwad}
+\ProvideDictTranslation{comment}{sylwad}
+\ProvideDictTranslation{Conjectures}{Tybiaethau}
+\ProvideDictTranslation{conjectures}{tybiaethau}
+\ProvideDictTranslation{Conjecture}{Tybiaeth}
+\ProvideDictTranslation{conjecture}{tybiaeth}
+\ProvideDictTranslation{Conditions}{Amodau}
+\ProvideDictTranslation{conditions}{amodau}
+\ProvideDictTranslation{Condition}{Amod}
+\ProvideDictTranslation{condition}{amod}
+\ProvideDictTranslation{Continued}{Parhad}
+\ProvideDictTranslation{continued}{parhad}
+\ProvideDictTranslation{Continuedabb}{Parh.}
+\ProvideDictTranslation{continuedabb}{parh.}
+\ProvideDictTranslation{Corollaries}{Canlynebau}
+\ProvideDictTranslation{corollaries}{canlynebau}
+\ProvideDictTranslation{Corollary}{Canlyneb}
+\ProvideDictTranslation{corollary}{canlyneb}
+\ProvideDictTranslation{Definitions}{Diffiniadau}
+\ProvideDictTranslation{definitions}{diffiniadau}
+\ProvideDictTranslation{Definition}{Diffiniad}
+\ProvideDictTranslation{definition}{diffiniad}
+\ProvideDictTranslation{Examples}{Enghreifftiau}
+\ProvideDictTranslation{examples}{enghreifftiau}
+\ProvideDictTranslation{Example}{Enghraifft}
+\ProvideDictTranslation{example}{enghraifft}
+\ProvideDictTranslation{Exercises}{Ymarferion}
+\ProvideDictTranslation{exercises}{ymarferion}
+\ProvideDictTranslation{Exercise}{Ymarfer}
+\ProvideDictTranslation{exercise}{ymarfer}
+\ProvideDictTranslation{Facts}{Ffeithiau}
+\ProvideDictTranslation{facts}{ffeithiau}
+\ProvideDictTranslation{Fact}{Ffaith}
+\ProvideDictTranslation{fact}{ffaith}
+\ProvideDictTranslation{Lemmas}{Lemata}
+\ProvideDictTranslation{lemmas}{lemata}
+\ProvideDictTranslation{Lemma}{Lema}
+\ProvideDictTranslation{lemma}{lema}
+\ProvideDictTranslation{Observations}{Arsylwadau}
+\ProvideDictTranslation{observations}{arsylwadau}
+\ProvideDictTranslation{Observation}{Arsylwad}
+\ProvideDictTranslation{observation}{arsylwad}
+\ProvideDictTranslation{Problems}{Problemau}
+\ProvideDictTranslation{problems}{problemau}
+\ProvideDictTranslation{Problem}{Problem}
+\ProvideDictTranslation{problem}{problem}
+\ProvideDictTranslation{Proofs}{Profion}
+\ProvideDictTranslation{proofs}{profion}
+\ProvideDictTranslation{Proof}{Prawf}
+\ProvideDictTranslation{proof}{prawf}
+\ProvideDictTranslation{Proofabb}{Prf.}
+\ProvideDictTranslation{proofabb}{prf.}
+\ProvideDictTranslation{Propositions}{Gosodiadau}
+\ProvideDictTranslation{propositions}{gosodiadau}
+\ProvideDictTranslation{Proposition}{Gosodiad}
+\ProvideDictTranslation{proposition}{gosodiad}
+\ProvideDictTranslation{Questions}{Cwestiynnau}
+\ProvideDictTranslation{questions}{cwestiynnau}
+\ProvideDictTranslation{Question}{Cwestiwn}
+\ProvideDictTranslation{question}{cwestiwn}
+\ProvideDictTranslation{Remarks}{Sylwadau}
+\ProvideDictTranslation{remarks}{sylwadau}
+\ProvideDictTranslation{Remark}{Sylwad}
+\ProvideDictTranslation{remark}{sylwad}
+\ProvideDictTranslation{Sketches}{Brasluniau}
+\ProvideDictTranslation{sketches}{brasluniau}
+\ProvideDictTranslation{Sketch}{Braslun}
+\ProvideDictTranslation{sketch}{braslun}
+\ProvideDictTranslation{Solutions}{Datrysiadau}
+\ProvideDictTranslation{solutions}{datrysiadau}
+\ProvideDictTranslation{Solution}{Datrysiad}
+\ProvideDictTranslation{solution}{datrysiad}
+\ProvideDictTranslation{Solutionabb}{Dat.}
+\ProvideDictTranslation{solutionabb}{dat.}
+\ProvideDictTranslation{Summaries}{Crynodebau}
+\ProvideDictTranslation{summaries}{crynodebau}
+\ProvideDictTranslation{Summary}{Crynodeb}
+\ProvideDictTranslation{summary}{crynodeb}
+\ProvideDictTranslation{Theorems}{Theoremau}
+\ProvideDictTranslation{theorems}{theoremau}
+\ProvideDictTranslation{Theorem}{Theorem}
+\ProvideDictTranslation{theorem}{theorem}
+%</theorem-welsh>
+%
+%<*basic-french>
+\ProvideDictionaryFor{French}{translations-basic-dictionary}
+\ProvideDictTranslation{Abstract}{R\'{e}sum\'{e}}
+\ProvideDictTranslation{Addresses}{Adresses}
+\ProvideDictTranslation{addresses}{adresses}
+\ProvideDictTranslation{Address}{Adresse}
+\ProvideDictTranslation{address}{adresse}
+\ProvideDictTranslation{and}{et}
+\ProvideDictTranslation{Appendix}{Annexe}
+\ProvideDictTranslation{Authors}{Auteurs}
+\ProvideDictTranslation{authors}{auteur}
+\ProvideDictTranslation{Author}{Auteur}
+\ProvideDictTranslation{author}{auteur}
+\ProvideDictTranslation{Bibliography}{Bibliographie}
+\ProvideDictTranslation{cc}{Copie \`{a} }
+\ProvideDictTranslation{Chapters}{Chapitres}
+\ProvideDictTranslation{chapters}{chapitres}
+\ProvideDictTranslation{Chapter}{Chapitre}
+\ProvideDictTranslation{chapter}{chapitre}
+\ProvideDictTranslation{Conclusion}{Conclusion}
+\ProvideDictTranslation{conclusion}{conclusion}
+\ProvideDictTranslation{Contents}{Contenu}
+\ProvideDictTranslation{Continuation}{Suite}
+\ProvideDictTranslation{continuation}{suite}
+\ProvideDictTranslation{cont}{suite}
+\ProvideDictTranslation{encl (plural)}{P.~J.}
+\ProvideDictTranslation{encl (singular)}{P.~J.}
+\ProvideDictTranslation{encl}{P.~J.}
+\ProvideDictTranslation{Figures}{Figures}
+\ProvideDictTranslation{figures}{figures}
+\ProvideDictTranslation{Figure}{Figure}
+\ProvideDictTranslation{figure}{figure}
+\ProvideDictTranslation{From}{De}
+\ProvideDictTranslation{from}{de}
+\ProvideDictTranslation{Glossary}{Glossaire}
+\ProvideDictTranslation{Index}{Index}
+\ProvideDictTranslation{Introduction}{Introduction}
+\ProvideDictTranslation{introduction}{introduction}
+\ProvideDictTranslation{List of Figures and Tables}{Liste des figures et des tableaux}
+\ProvideDictTranslation{List of Figures}{Liste des figures}
+\ProvideDictTranslation{List of Tables}{Liste des tableaux}
+\ProvideDictTranslation{or}{ou}
+\ProvideDictTranslation{Outline}{Plan}
+\ProvideDictTranslation{Overview}{Sommaire}
+\ProvideDictTranslation{Pages}{Pages}
+\ProvideDictTranslation{pages}{pages}
+\ProvideDictTranslation{Page}{Page}
+\ProvideDictTranslation{page}{page}
+\ProvideDictTranslation{Paragraphs}{Paragraphes}
+\ProvideDictTranslation{paragraphs}{paragraphes}
+\ProvideDictTranslation{Paragraph}{Paragraphe}
+\ProvideDictTranslation{paragraph}{paragraphe}
+\ProvideDictTranslation{Parts}{Parties}
+\ProvideDictTranslation{parts}{parties}
+\ProvideDictTranslation{Part}{Partie}
+\ProvideDictTranslation{part}{partie}
+\ProvideDictTranslation{Preface}{Pr\'{e}face}
+\ProvideDictTranslation{Proofs}{D\'{e}monstrations}
+\ProvideDictTranslation{proofs}{d\'{e}monstrations}
+\ProvideDictTranslation{Proof}{D\'{e}monstration}
+\ProvideDictTranslation{proof}{d\'{e}monstration}
+\ProvideDictTranslation{References}{R\'{e}f\'{e}rences}
+\ProvideDictTranslation{Related work}{travaux connexes}
+\ProvideDictTranslation{Related Work}{Travaux connexes}
+\ProvideDictTranslation{Sections}{Sections}
+\ProvideDictTranslation{sections}{sections}
+\ProvideDictTranslation{Section}{Section}
+\ProvideDictTranslation{section}{section}
+\ProvideDictTranslation{See also}{Voir aussi}
+\ProvideDictTranslation{see also}{voir aussi}
+\ProvideDictTranslation{See}{Voir}
+\ProvideDictTranslation{see}{voir}
+\ProvideDictTranslation{Sketch of Proofs}{Esquisse de preuves}
+\ProvideDictTranslation{Sketch of proofs}{Esquisse de preuves}
+\ProvideDictTranslation{Sketch of Proof}{Esquisse de preuve}
+\ProvideDictTranslation{Sketch of proof}{Esquisse de preuve}
+\ProvideDictTranslation{Subsections}{Sous-sections}
+\ProvideDictTranslation{subsections}{sous-sections}
+\ProvideDictTranslation{Subsection}{Sous-section}
+\ProvideDictTranslation{subsection}{sous-section}
+\ProvideDictTranslation{Summary}{R\'{e}sum\'{e}}
+\ProvideDictTranslation{Tables}{Tables}
+\ProvideDictTranslation{tables}{tables}
+\ProvideDictTranslation{Table}{Table}
+\ProvideDictTranslation{table}{table}
+\ProvideDictTranslation{To}{\`{A}}
+\ProvideDictTranslation{to}{\`{a}}
+
+\ProvideDictTranslation{Monday}{lundi}
+\ProvideDictTranslation{Tuesday}{mardi}
+\ProvideDictTranslation{Wednesday}{mercredi}
+\ProvideDictTranslation{Thursday}{jeudi}
+\ProvideDictTranslation{Friday}{vendredi}
+\ProvideDictTranslation{Saturday}{samedi}
+\ProvideDictTranslation{Sunday}{dimanche}
+
+\ProvideDictTranslation{January}{janvier}
+\ProvideDictTranslation{February}{f\'{e}vrier}
+\ProvideDictTranslation{March}{mars}
+\ProvideDictTranslation{April}{avril}
+\ProvideDictTranslation{May}{mai}
+\ProvideDictTranslation{June}{juin}
+\ProvideDictTranslation{July}{juillet}
+\ProvideDictTranslation{August}{ao\^{u}t}
+\ProvideDictTranslation{September}{septembre}
+\ProvideDictTranslation{October}{octobre}
+\ProvideDictTranslation{November}{novembre}
+\ProvideDictTranslation{December}{d\'{e}cembre}
+%</basic-french>
+%
+%<*theorem-french>
+\ProvideDictionaryFor{French}{translations-theorem-dictionary}
+\ProvideDictTranslation{Answers}{R\'eponses}
+\ProvideDictTranslation{answers}{r\'eponses}
+\ProvideDictTranslation{Answer}{R\'eponse}
+\ProvideDictTranslation{answer}{r\'eponse}
+\ProvideDictTranslation{Comments}{Commentaires}
+\ProvideDictTranslation{comments}{commentaires}
+\ProvideDictTranslation{Comment}{Commentaire}
+\ProvideDictTranslation{comment}{commentaire}
+\ProvideDictTranslation{Conditions}{Conditions}
+\ProvideDictTranslation{conditions}{conditions}
+\ProvideDictTranslation{Condition}{Condition}
+\ProvideDictTranslation{condition}{condition}
+\ProvideDictTranslation{Corollaries}{Corollaires}
+\ProvideDictTranslation{corollaries}{corollaires}
+\ProvideDictTranslation{Corollary}{Corollaire}
+\ProvideDictTranslation{corollary}{corollaire}
+\ProvideDictTranslation{Definitions}{D\'efinitions}
+\ProvideDictTranslation{definitions}{d\'efinitions}
+\ProvideDictTranslation{Definition}{D\'efinition}
+\ProvideDictTranslation{definition}{d\'efinition}
+\ProvideDictTranslation{Examples}{Exemples}
+\ProvideDictTranslation{examples}{exemples}
+\ProvideDictTranslation{Example}{Exemple}
+\ProvideDictTranslation{example}{exemple}
+\ProvideDictTranslation{Exercises}{Exercices}
+\ProvideDictTranslation{exercises}{exercices}
+\ProvideDictTranslation{Exercise}{Exercice}
+\ProvideDictTranslation{exercise}{exercice}
+\ProvideDictTranslation{Lemmas}{Lemmes}
+\ProvideDictTranslation{lemmas}{lemmes}
+\ProvideDictTranslation{Lemma}{Lemme}
+\ProvideDictTranslation{lemma}{lemme}
+\ProvideDictTranslation{Observations}{Observations}
+\ProvideDictTranslation{observations}{observations}
+\ProvideDictTranslation{Observation}{Observation}
+\ProvideDictTranslation{observation}{observation}
+\ProvideDictTranslation{Problems}{Probl\`emes}
+\ProvideDictTranslation{problems}{probl\`emes}
+\ProvideDictTranslation{Problem}{Probl\`eme}
+\ProvideDictTranslation{problem}{probl\`eme}
+\ProvideDictTranslation{Proofs}{D\'emonstrations}
+\ProvideDictTranslation{proofs}{d\'emonstrations}
+\ProvideDictTranslation{Proof}{D\'emonstration}
+\ProvideDictTranslation{proof}{d\'emonstration}
+\ProvideDictTranslation{Propositions}{Propositions}
+\ProvideDictTranslation{propositions}{propositions}
+\ProvideDictTranslation{Proposition}{Proposition}
+\ProvideDictTranslation{proposition}{proposition}
+\ProvideDictTranslation{Questions}{Questions}
+\ProvideDictTranslation{questions}{questions}
+\ProvideDictTranslation{Question}{Question}
+\ProvideDictTranslation{question}{question}
+\ProvideDictTranslation{Remarks}{Remarques}
+\ProvideDictTranslation{remarks}{remarques}
+\ProvideDictTranslation{Remark}{Remarque}
+\ProvideDictTranslation{remark}{remarque}
+\ProvideDictTranslation{Sketches}{Sketches}
+\ProvideDictTranslation{sketches}{sketches}
+\ProvideDictTranslation{Sketch}{Sketch}
+\ProvideDictTranslation{sketch}{sketch}
+\ProvideDictTranslation{Solutions}{Solutions}
+\ProvideDictTranslation{solutions}{solutions}
+\ProvideDictTranslation{Solution}{Solution}
+\ProvideDictTranslation{solution}{solution}
+\ProvideDictTranslation{Theorems}{Th\'eor\`emes}
+\ProvideDictTranslation{theorems}{th\'eor\`emes}
+\ProvideDictTranslation{Theorem}{Th\'eor\`eme}
+\ProvideDictTranslation{theorem}{th\'eor\`eme}
+%</theorem-french>
+%
+%<*basic-breton>
+\ProvideDictionaryFor{Breton}{translations-basic-dictionary}
+\ProvideDictTranslation{Abstract}{Diverra\~n}
+\ProvideDictTranslation{Addresses}{Chomlec'hio\`u}
+\ProvideDictTranslation{addresses}{chomlec'hio\`u}
+\ProvideDictTranslation{Address}{Chomlec'h}
+\ProvideDictTranslation{address}{chomlec'h}
+\ProvideDictTranslation{and}{ha}
+\ProvideDictTranslation{Appendix}{Stagadenn}
+\ProvideDictTranslation{Authors}{Aberourien}
+\ProvideDictTranslation{authors}{oberourien}
+\ProvideDictTranslation{Author}{Aozer}
+\ProvideDictTranslation{author}{aozer}
+\ProvideDictTranslation{Bibliography}{Lennadurezh}
+\ProvideDictTranslation{cc}{cc}
+\ProvideDictTranslation{Chapters}{Pennado\`u}
+\ProvideDictTranslation{chapters}{pennado\`u}
+\ProvideDictTranslation{Chapter}{Pennad}
+\ProvideDictTranslation{chapter}{pennad}
+\ProvideDictTranslation{Conclusion}{Klozadur}
+\ProvideDictTranslation{conclusion}{klozadur}
+\ProvideDictTranslation{Contents}{Taolenn}
+\ProvideDictTranslation{Continuation}{Kendalc'h}
+\ProvideDictTranslation{continuation}{kendalc'h}
+\ProvideDictTranslation{cont}{kend}
+\ProvideDictTranslation{encl (plural)}{Diello\`u kevret}
+\ProvideDictTranslation{encl (singular)}{Diell kevret}
+\ProvideDictTranslation{encl}{Diell kevret}
+\ProvideDictTranslation{Figures}{Figurenno\`u}
+\ProvideDictTranslation{figures}{figurenno\`u}
+\ProvideDictTranslation{Figure}{Figurenn}
+\ProvideDictTranslation{figure}{figurenn}
+\ProvideDictTranslation{From}{Eus}
+\ProvideDictTranslation{from}{eus}
+\ProvideDictTranslation{Glossary}{Geriaoueg}
+\ProvideDictTranslation{Index}{Meneger}
+\ProvideDictTranslation{Introduction}{Digoradur}
+\ProvideDictTranslation{introduction}{digoradur}
+\ProvideDictTranslation{List of Figures and Tables}{Listenn ar Figurenno\`u and Taolenno\`u}
+\ProvideDictTranslation{List of Figures}{Listenn ar Figurenno\`u}
+\ProvideDictTranslation{List of Tables}{Listenn an Taolenno\`u}
+\ProvideDictTranslation{or}{pe}
+\ProvideDictTranslation{Outline}{Ezlinenn}
+\ProvideDictTranslation{Overview}{Gwel dre vras}
+\ProvideDictTranslation{Pages}{Pajenn\`ou}
+\ProvideDictTranslation{pages}{pajenn\`ou}
+\ProvideDictTranslation{Page}{Pajenn}
+\ProvideDictTranslation{page}{pajenn}
+\ProvideDictTranslation{Paragraphs}{Rannbennado\`u}
+\ProvideDictTranslation{paragraphs}{rannbennado\`u}
+\ProvideDictTranslation{Paragraph}{Rannbennad}
+\ProvideDictTranslation{paragraph}{rannbennad}
+\ProvideDictTranslation{Parts}{Lodenno\`u}
+\ProvideDictTranslation{parts}{lodenno\`u}
+\ProvideDictTranslation{Part}{Lodenn}
+\ProvideDictTranslation{part}{lodenn}
+\ProvideDictTranslation{Preface}{Rakskrid}
+\ProvideDictTranslation{Proofs}{Prouenn\`ou}
+\ProvideDictTranslation{proofs}{prouenn\`ou}
+\ProvideDictTranslation{Proof}{Prouenn}
+\ProvideDictTranslation{proof}{prouenn}
+\ProvideDictTranslation{References}{Daveenno\`u}
+\ProvideDictTranslation{Related work}{Labour liammet}
+\ProvideDictTranslation{Related Work}{Labour Liammet}
+\ProvideDictTranslation{Sections}{Ranno\`u}
+\ProvideDictTranslation{sections}{ranno\`u}
+\ProvideDictTranslation{Section}{Rann}
+\ProvideDictTranslation{section}{rann}
+\ProvideDictTranslation{See also}{Gwelout ivez}
+\ProvideDictTranslation{see also}{gwelout ivez}
+\ProvideDictTranslation{See}{Gwelout}
+\ProvideDictTranslation{see}{gwelout}
+\ProvideDictTranslation{Sketch of Proofs}{Skeudenn ar Brouenn\`ou}
+\ProvideDictTranslation{Sketch of proofs}{Skeudenn ar brouenn\`ou}
+\ProvideDictTranslation{Sketch of Proof}{Skeudenn ar Brouenn}
+\ProvideDictTranslation{Sketch of proof}{Skeudenn ar brouenn}
+\ProvideDictTranslation{Subsections}{Isrann\`ou}
+\ProvideDictTranslation{subsections}{isran\`ou}
+\ProvideDictTranslation{Subsection}{Isran}
+\ProvideDictTranslation{subsection}{isran}
+\ProvideDictTranslation{Summary}{Diverra\~n}
+\ProvideDictTranslation{Tables}{Taolenno\`u}
+\ProvideDictTranslation{tables}{taolenno\`u}
+\ProvideDictTranslation{Table}{Taolenn}
+\ProvideDictTranslation{table}{taolenn}
+\ProvideDictTranslation{To}{Da}
+\ProvideDictTranslation{to}{da}
+
+\ProvideDictTranslation{Monday}{Lun}
+\ProvideDictTranslation{Tuesday}{Meurzh}
+\ProvideDictTranslation{Wednesday}{Merc'her}
+\ProvideDictTranslation{Thursday}{Yaou}
+\ProvideDictTranslation{Friday}{Gwener}
+\ProvideDictTranslation{Saturday}{Sadorn}
+\ProvideDictTranslation{Sunday}{Sul}
+
+\ProvideDictTranslation{January}{Genver}
+\ProvideDictTranslation{February}{C'hwevrer}
+\ProvideDictTranslation{March}{Meurzh}
+\ProvideDictTranslation{April}{Ebrel}
+\ProvideDictTranslation{May}{Mae}
+\ProvideDictTranslation{June}{Mezheven}
+\ProvideDictTranslation{July}{Gouere}
+\ProvideDictTranslation{August}{Eost}
+\ProvideDictTranslation{September}{Gwengolo}
+\ProvideDictTranslation{October}{Here}
+\ProvideDictTranslation{November}{Du}
+\ProvideDictTranslation{December}{Kerzu}
+%</basic-breton>
+%
+%<*theorem-breton>
+\ProvideDictionaryFor{Breton}{translations-theorem-dictionary}
+\ProvideDictTranslation{Answers}{Responto\`u}
+\ProvideDictTranslation{answers}{responto\`u}
+\ProvideDictTranslation{Answer}{Respont}
+\ProvideDictTranslation{answer}{respont}
+\ProvideDictTranslation{Answerabb}{Resp.}
+\ProvideDictTranslation{answerabb}{resp.}
+\ProvideDictTranslation{Comments}{Evezhiadenno\`u}
+\ProvideDictTranslation{comments}{evezhiadenno\`u}
+\ProvideDictTranslation{Comment}{Evezhiadenn}
+\ProvideDictTranslation{comment}{evezhiadenn}
+\ProvideDictTranslation{Conditions}{Modelezhioù}
+\ProvideDictTranslation{conditions}{modelezhioù}
+\ProvideDictTranslation{Condition}{Plegenn}
+\ProvideDictTranslation{condition}{plegenn}
+\ProvideDictTranslation{Continued}{Kendalc'het}
+\ProvideDictTranslation{continued}{kendalc'het}
+\ProvideDictTranslation{Continuedabb}{Kend.}
+\ProvideDictTranslation{continuedabb}{kend.}
+\ProvideDictTranslation{Corollaries}{Heuliado\`u}
+\ProvideDictTranslation{corollaries}{heuliado\`u}
+\ProvideDictTranslation{Corollary}{Heuliad}
+\ProvideDictTranslation{corollary}{heuliad}
+\ProvideDictTranslation{Definitions}{Termenadurio\`u}
+\ProvideDictTranslation{definitions}{termenadurio\`u}
+\ProvideDictTranslation{Definition}{Termenadur}
+\ProvideDictTranslation{definition}{termenadur}
+\ProvideDictTranslation{Examples}{Skouerio\`u}
+\ProvideDictTranslation{examples}{skouerio\`u}
+\ProvideDictTranslation{Example}{Skouer}
+\ProvideDictTranslation{example}{skouer}
+\ProvideDictTranslation{Exercises}{Deverio\`u}
+\ProvideDictTranslation{exercises}{deverio\`u}
+\ProvideDictTranslation{Exercise}{Dever}
+\ProvideDictTranslation{exercise}{dever}
+\ProvideDictTranslation{Lemmas}{Lemmao\`u}
+\ProvideDictTranslation{lemmas}{lemmao\`u}
+\ProvideDictTranslation{Lemma}{Lemma}
+\ProvideDictTranslation{lemma}{lemma}
+\ProvideDictTranslation{Observations}{Arselladenno\`u}
+\ProvideDictTranslation{observations}{arselladenno\`u}
+\ProvideDictTranslation{Observation}{Arselladenn}
+\ProvideDictTranslation{observation}{arselladenn}
+\ProvideDictTranslation{Problems}{Kudenno\`u}
+\ProvideDictTranslation{problems}{kudenno\`u}
+\ProvideDictTranslation{Problem}{Kudenn}
+\ProvideDictTranslation{problem}{kudenn}
+\ProvideDictTranslation{Proofs}{Prouenno\`u}
+\ProvideDictTranslation{proofs}{prouenno\`u}
+\ProvideDictTranslation{Proof}{Prouenn}
+\ProvideDictTranslation{proof}{prouenn}
+\ProvideDictTranslation{Proofabb}{Pro.}
+\ProvideDictTranslation{proofabb}{pro.}
+\ProvideDictTranslation{Propositions}{Kinnigo\`u}
+\ProvideDictTranslation{propositions}{kinnigo\`u}
+\ProvideDictTranslation{Proposition}{Kinnig}
+\ProvideDictTranslation{proposition}{kinnig}
+\ProvideDictTranslation{Questions}{Goulenno\`u}
+\ProvideDictTranslation{questions}{goulenno\`u}
+\ProvideDictTranslation{Question}{Goulenn}
+\ProvideDictTranslation{question}{goulenn}
+\ProvideDictTranslation{Remarks}{Evezhiadenno\`u}
+\ProvideDictTranslation{remarks}{evezhiadenno\`u}
+\ProvideDictTranslation{Remark}{Evezhiaden}
+\ProvideDictTranslation{remark}{evezhiaden}
+\ProvideDictTranslation{Sketches}{Tresadenno\`u}
+\ProvideDictTranslation{sketches}{tresadenno\`u}
+\ProvideDictTranslation{Sketch}{Tresadenn}
+\ProvideDictTranslation{sketch}{tresadenn}
+\ProvideDictTranslation{Solutions}{Diskoulmo\`u}
+\ProvideDictTranslation{solutions}{diskoulmo\`u}
+\ProvideDictTranslation{Solution}{Diskoulm}
+\ProvideDictTranslation{solution}{diskoulm}
+\ProvideDictTranslation{Solutionabb}{Dis.}
+\ProvideDictTranslation{solutionabb}{dis.}
+\ProvideDictTranslation{Summaries}{Diverradenno\`u}
+\ProvideDictTranslation{summaries}{diverradenno\`u}
+\ProvideDictTranslation{Summary}{diverra\~n}
+\ProvideDictTranslation{summary}{diverra\~n}
+\ProvideDictTranslation{Theorems}{Teoremo\`u}
+\ProvideDictTranslation{theorems}{teoremo\`u}
+\ProvideDictTranslation{Theorem}{Teorem}
+\ProvideDictTranslation{theorem}{teorem}
+%</theorem-breton>
+% \fi
+
+% \Finale

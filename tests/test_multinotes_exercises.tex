@@ -1,0 +1,281 @@
+% Multinotes test file for exercises
+
+% Toggle the following options to see their effect
+%\PassOptionsToPackage{noanswers}{multinotes}
+%\PassOptionsToPackage{blankanswers}{multinotes}
+
+%------------------------------------------------
+\documentclass{article}
+%------------------------------------------------
+
+% paper
+\usepackage[margin=30mm, a4paper]{geometry}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1ex}
+
+% multinotes
+\usepackage{../multinotes}
+\answercolour{purple}
+\framedanswers
+\setboxrule{0.5pt}
+
+% misc
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+
+% meta
+\title{Typesetting exercises with {\tt multinotes.sty}}
+\author{DE}
+
+%------------------------------------------------
+\begin{document}
+\maketitle
+
+%----------------------------------------
+\section{Answers to exercises}
+%----------------------------------------
+
+The \verb+\ans+ macro and \verb+answer+ environment respond to the \verb+blankanswers+ and \verb+noanswers+ options.
+
+\begin{itemize}
+\item \verb+blankanswers+ replaces the content by blank space. 
+\item \verb+noanswers+ removes the answer completely.
+\end{itemize}
+
+Here is an answer environment (removed with \verb+noanswers+ option).
+\begin{answer}
+\lipsum[1]
+\end{answer}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\begin{answer}
+\lipsum[1]
+\end{answer}
+\end{Verbatim}
+
+Here is an answer environment with a custom title (removed with \verb+noanswers+ option).
+
+\begin{answer}[Solution]
+\lipsum[1]
+\end{answer}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\begin{answer}[Solution]
+\lipsum[1]
+\end{answer}
+\end{Verbatim}
+
+%----------------------------------------
+\section{Questions, parts and subparts}
+%------------------------------------------------
+
+The package replicates list environments found in {\tt exam.cls} (namely {\tt questions}, {\tt parts}, {\tt subparts}, {\tt choices} and {\tt checkboxes}), and makes them responsive to the {\tt blankanswers} and {\tt noanswers} options. For example,
+
+\begin{questions}
+\question First question.
+\begin{parts}
+\part First part. \ans{Answer to first part.}
+\part Second part.
+\begin{subparts}
+\subpart First subpart. \ans{Answer to first subpart.}
+\subpart Second subpart. \ans{Answer to second subpart.}
+\end{subparts}
+\part Third part. \ans{Answer to third part.}
+\end{parts}
+\question Second question. \ans{Answer to second question.}
+\end{questions}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\begin{questions}
+\question First question.
+\begin{parts}
+\part First part. \ans{Answer to first part.}
+\part Second part.
+\begin{subparts}
+\subpart First subpart. \ans{Answer to first subpart.}
+\subpart Second subpart. \ans{Answer to second subpart.}
+\end{subparts}
+\part Third part. \ans{Answer to third part.}
+\end{parts}
+\question Second question. \ans{Answer to second question.}
+\end{questions}
+\end{Verbatim}
+
+
+%
+%--------------------
+\section{Multiple choice questions}
+
+\begin{questions}
+\question
+In what year did Columbus first cross the Atlantic?
+\begin{choices}
+\choice 1490 
+\choice 1491 
+\correctchoice 1492 
+\choice 1493 
+\end{choices}
+\question
+The rain in Spain falls mainly on the plain.
+\begin{choices}
+\correctchoice True 		
+\choice False		
+\end{choices}
+\end{questions}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\begin{questions}
+\question
+In what year did Columbus first cross the Atlantic?
+\begin{choices}
+\choice 1490 
+\choice 1491 
+\correctchoice 1492 
+\choice 1493 
+\end{choices}
+\question
+The rain in Spain falls mainly on the plain.
+\begin{choices}
+\correctchoice True 		
+\choice False		
+\end{choices}
+\end{questions}
+\end{Verbatim}
+
+%--------------------
+\section{Multiple answer questions}
+
+Which of the following were members of the Beatles?
+\begin{checkboxes}
+\correctchoice John
+\correctchoice Paul
+\correctchoice George
+\choice Zippy
+\end{checkboxes}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+Which of the following were members of the Beatles?
+\begin{checkboxes}
+\correctchoice John
+\correctchoice Paul
+\correctchoice George
+\choice Zippy
+\end{checkboxes}
+\end{Verbatim}
+
+%--------------------
+\section{Fill the blanks}
+
+\begin{questions}
+\question Roses are \fillbox{red}, violets are \fillbox{blue}.
+\question State Einstein's equation: $E=$\fillbox{$mc^2$}.
+\end{questions}
+
+This is produced by the following code.
+\begin{Verbatim}[frame=single]
+\begin{questions}
+\question Roses are \fillbox{red}, violets are \fillbox{blue}.
+\question State Einstein's equation: $E=$\fillbox{$mc^2$}.
+\end{questions}
+\end{Verbatim}
+
+
+%------------------------------------------------
+\section{Example: prime numbers quiz}
+%------------------------------------------------
+
+\begin{questions}
+
+\question
+What are the prime factors of 42?
+\begin{choices}
+\choice $3\times 14$
+\correctchoice $2\times 3\times 7$
+\choice $2\times 21$
+\end{choices}
+
+\question
+What are the prime factors of 150?
+\begin{choices}
+\correctchoice $2\times 3\times 5\times 5$
+\choice $3\times 3\times 5\times 5$
+\choice $6\times 25$
+\end{choices}
+
+\question
+What is the LCM of 13 and 3?
+\begin{choices}
+\choice $13$
+\choice $3$
+\correctchoice $39$
+\end{choices}
+
+\question
+What is the HCF of 32 and 24?
+\begin{choices}
+\choice $2$
+\correctchoice $8$
+\choice $4$
+\end{choices}
+
+\question
+What is the LCM of 24 and 36?
+\begin{choices}
+\choice $12$
+\correctchoice $72$
+\choice $30$
+\end{choices}
+
+\question
+What is the HCF of 104 and 136?
+\begin{choices}
+\correctchoice $8$
+\choice $12$
+\choice $13$
+\end{choices}
+
+\question
+What is the HCF of $3\times 13$ and $2^2\times 13$?
+\begin{choices}
+\choice $9$
+\choice $17$
+\correctchoice $13$
+\end{choices}
+
+\question
+What is the LCM of $2^2\times 3^2\times 5$ and $2^3\times 3\times 5$?
+\begin{choices}
+\correctchoice $360$
+\choice $16\,120$
+\choice $30$
+\end{choices}
+
+\question
+What is the HCF of $2\times 5\times 13$ and $22\times 13$?
+\begin{choices}
+\choice $13$
+\correctchoice $26$
+\choice $52$
+\end{choices}
+
+\question
+Find the LCM of $3^2\times 11\times 13$ and $3\times 11^2$.
+\begin{choices}
+\choice $1287$
+\correctchoice $14\,157$
+\choice $429$
+\end{choices}
+
+\end{questions}
+
+
+%------------------------------------------------
+\end{document}
+%------------------------------------------------
+
+

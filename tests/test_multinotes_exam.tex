@@ -1,0 +1,70 @@
+% Test multinotes package with exam.cls
+
+% uncomment the following to remove answers
+%\PassOptionsToPackage{noanswers}{multinotes}
+%\PassOptionsToPackage{blankanswers}{multinotes}
+
+\documentclass{exam}
+
+% exam.cls options
+\bracketedpoints
+\pointsinrightmargin
+\pointsdroppedatright
+\addpoints
+
+% multinotes
+\usepackage{../multinotes}
+
+% define languages
+\definelanguage{welsh}{cy}{cym}{cymraeg}
+\definelanguage{english}{en}{eng}{english}
+
+% set language styles
+\setlanguagestyle{welsh}{\color{purple}}
+\setlanguagestyle{english}{\color{blue}\slshape}
+
+% choose language
+\includelanguage{welsh}
+%\includelanguage{english}
+
+% multinotes options
+\framedanswers
+\setboxrule{0.2pt}
+
+% meta
+\title{\cym{Arholiad}\eng{Exam}}
+\date{\cym{\today}\eng{\today}}
+
+%--------------------
+\begin{document}
+\maketitle
+
+This file tests how \verb+multinotes.sty+ interacts with \verb+exam.cls+.
+
+\bigskip\hrule\bigskip
+
+\cym{Atebwch y cwestiynnau isod.}
+\eng{Answer the questions below.}
+
+\begin{questions}
+
+\question[2] 
+\cym{Cyfrifwch}\eng{Compute} 3+3. \droppoints
+\ans{6}
+
+\question[3]
+\cym{Datryswch}\eng{Solve} $x^2-3x+2=0$. \droppoints
+\ans{$x=1$, $x=2$}
+
+\question[4] 
+\cym{Ffactoriwch}\eng{Factorize} $x^2-3x+2$. \droppoints
+\begin{answer}
+$(x-1)(x-2)$.
+\end{answer}
+
+\end{questions}
+
+\hrule
+
+\end{document}
+%--------------------

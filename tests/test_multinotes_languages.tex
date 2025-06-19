@@ -1,0 +1,256 @@
+%--------------------
+\documentclass{article}
+
+%-------------------------
+% set input path (so that LaTeX can find the .trsl files)
+\makeatletter
+\def\input@path{{../}}
+\makeatother
+%-------------------------
+
+% layout
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2ex}
+%\usepackage[margin=20mm,a4paper]{geometry}
+\usepackage[margin=20mm,a4paper, landscape]{geometry}
+%\usepackage[margin=20mm,a3paper,landscape]{geometry}
+
+% multinotes
+\usepackage{multinotes}
+
+% define languages
+\definelanguage{welsh}{cy}{cym}{cymraeg}
+\definelanguage{english}{en}{eng}{english}
+\definelanguage{french}{fr}{fra}{francais}
+\definelanguage{breton}{br}{bre}{brezhoneg}
+\definelanguage{russian}{ru}{rus}{russkiy}
+\definelanguage{thai}{th}{tha}{thai}
+
+% include languages
+\includelanguage{welsh}
+\includelanguage{english}
+\includelanguage{breton}
+\includelanguage{french}
+%\includelanguage{russian}
+%\includelanguage{thai}
+
+% enable non-latin fonts for Russian and Thai
+% Note: these need LuaLaTeX (not PDFLatex)
+%\babelfont{rm}{FreeSerif}
+%\babelfont{sf}{FreeSans}
+%\babelfont{tt}{FreeMono}
+
+% language styles
+\definecolor{darkblue}{RGB}{0,0,139}
+\definecolor{darkgreen}{RGB}{2,90,2}
+\definecolor{darkred}{RGB}{139,0,0}
+\setlanguagestyle{welsh}{\color{red}}
+\setlanguagestyle{english}{\color{blue}}
+\setlanguagestyle{breton}{\color{purple}}
+\setlanguagestyle{french}{\color{darkblue}}
+\setlanguagestyle{russian}{\color{darkred}}
+\setlanguagestyle{thai}{\color{darkgreen}}
+
+
+% multicol options
+\columnsep=0.05\textwidth
+\columnseprule=0.4pt
+\raggedright
+\localcounter{section}
+\localcounter{enumi}
+
+% theorems
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{theorem}{\GetTranslation{Theorem}}
+\newtheorem{definition}[theorem]{\GetTranslation{Definition}}
+\newtheorem{corollary}[theorem]{\GetTranslation{Corollary}}
+
+\usepackage{lipsum}
+
+%--------------------
+\begin{document}
+
+%--------------------
+% title
+\begin{multicols}
+\cym{\title{Dogfen brawf}\author{DE}\date{\today}\maketitle}
+\eng{\title{Test document}\author{DE}\date{\today}\maketitle}
+\fra{\title{Document de test}\author{DE}\date{\today}\maketitle}
+\bre{\title{Teul amprouiñ}\author{DE}\date{\today}\maketitle}
+\rus{\title{Тестовый документ}\author{DE}\date{\today}\maketitle}
+\tha{\title{เอกสารทดสอบ}\author{DE}\date{\today}\maketitle}
+\end{multicols}
+
+
+% abstract
+\begin{multicols}
+
+\begin{cymraeg}
+\begin{abstract}
+Helo byd!
+\end{abstract}
+\end{cymraeg}
+
+\begin{english}
+\begin{abstract}
+Hello world!
+\end{abstract}
+\end{english}
+
+\begin{brezhoneg}
+\begin{abstract}
+Demat bed!
+\end{abstract}
+\end{brezhoneg}
+
+\begin{francais}
+\begin{abstract}
+Bonjour le monde!
+\end{abstract}
+\end{francais}
+
+\begin{russkiy}
+\begin{abstract}
+Привет, мир!
+\end{abstract}
+\end{russkiy}
+
+\begin{thai}
+\begin{abstract}
+สวัสดีโลก
+\end{abstract}
+\end{thai}
+
+\end{multicols}
+
+%--------------------
+\section{Introduction}
+Some common text
+\cym{\lipsum[1]}
+\eng{\lipsum[2]}
+\bre{\lipsum[3]}
+\fra{\lipsum[4]}
+\rus{\lipsum[5]}
+\tha{\lipsum[6]}
+
+%--------------------
+\section{Sequential mode}
+
+\begin{cymraeg}
+\begin{definition}
+\lipsum[1]
+\end{definition}
+\end{cymraeg}
+
+\begin{english}
+\begin{definition}
+\lipsum[2]
+\end{definition}
+\end{english}
+
+\begin{brezhoneg}
+\begin{definition}
+\lipsum[3]
+\end{definition}
+\end{brezhoneg}
+
+\begin{francais}
+\begin{definition}
+\lipsum[4]
+\end{definition}
+\end{francais}
+
+\begin{russkiy}
+\begin{definition}
+Это простой, фиктивный контент, используемый в типографском или наборном бизнесе.
+\end{definition}
+\end{russkiy}
+
+\begin{thai}
+\begin{definition}
+คือ เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์
+\end{definition}
+\end{thai}
+
+%--------------------
+\section{Parallel mode}
+
+\begin{multicols}
+
+\begin{english}
+\begin{definition}
+\lipsum[1]
+\end{definition}
+\end{english}
+
+\begin{cymraeg}
+\begin{definition}
+\lipsum[2]
+\end{definition}
+\end{cymraeg}
+
+\begin{brezhoneg}
+\begin{definition}
+\lipsum[3]
+\end{definition}
+\end{brezhoneg}
+
+\begin{francais}
+\begin{definition}
+\lipsum[4]
+\end{definition}
+\end{francais}
+
+\begin{russkiy}
+\begin{definition}
+\lipsum[5]
+\end{definition}
+\end{russkiy}
+
+\begin{thai}
+\begin{definition}
+\lipsum[6]
+\end{definition}
+\end{thai}
+
+\end{multicols}
+
+%--------------------
+\section{Parallel mode using 
+{\tt\textbackslash multicolsync}
+and
+{\tt\textbackslash multicolspan}}
+
+%\multicolsoff
+
+\begin{multicols}
+
+\cym{\lipsum[1]}
+\eng{\lipsum[2]}
+\bre{\lipsum[3]}
+\fra{\lipsum[4]}
+\rus{\lipsum[5]}
+\tha{\lipsum[6]}
+
+\multicolsync
+
+\cym{\lipsum[7]}
+\eng{\lipsum[8]}
+\bre{\lipsum[9]}
+\fra{\lipsum[10]}
+\rus{\lipsum[11]}
+\tha{\lipsum[12]}
+
+\multicolspan{\lipsum[13]}
+
+\cym{\lipsum[14]}
+\eng{\lipsum[15]}
+\bre{\lipsum[16]}
+\fra{\lipsum[17]}
+\rus{\lipsum[18]}
+\tha{\lipsum[19]}
+
+\end{multicols}
+
+\end{document}
