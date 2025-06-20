@@ -17,13 +17,28 @@
 %
 % \iffalse
 %<*readme>
-%----------------------------------------------------------------
-%Latex `multinotes` package
-%Tools for typesetting multilingual lecture notes and exercise sheets.
+%--------------------------------------------------------------------------
+%The MULTINOTES package v1.0 - 2025/06/21
+%Tools for typesetting multilingual lecture notes and exercises.
+%--------------------------------------------------------------------------
+%Dafydd Evans
+%Web:    https://github.com/dimbyd/multinotes
 %E-mail: evansd8@cf.ac.uk
+%--------------------------------------------------------------------------
+%Copyright 2025 Dafydd Evans
+%
 %Released under the LaTeX Project Public License v1.3c or later
 %See https://www.latex-project.org/lppl.txt
-%----------------------------------------------------------------
+%--------------------------------------------------------------------------
+%The multinotes package consists of the files
+% - multinotes.dtx
+% - multinotes.ins
+% - multinotes.pdf
+% - README
+%--------------------------------------------------------------------------
+%If you have any ideas, questions, suggestions or bugs to report, please
+%feel free to contact me.
+%--------------------------------------------------------------------------
 %</readme>
 %
 %<*driver>
@@ -32,7 +47,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[2005/12/31]
 %<package>\ProvidesPackage{multinotes}
 %<*package>
-	[2025/12/31 v1.0 Multilingual lecture notes]
+	[2025/06/21 v1.0 Multilingual lecture notes]
 %</package>
 %
 %<*driver>
@@ -1540,384 +1555,6 @@
 \ProvideDictTranslation{Theorem}{Theorem}
 \ProvideDictTranslation{theorem}{theorem}
 %</theorem-welsh>
-%
-%<*basic-french>
-\ProvideDictionaryFor{French}{translations-basic-dictionary}
-\ProvideDictTranslation{Abstract}{R\'{e}sum\'{e}}
-\ProvideDictTranslation{Addresses}{Adresses}
-\ProvideDictTranslation{addresses}{adresses}
-\ProvideDictTranslation{Address}{Adresse}
-\ProvideDictTranslation{address}{adresse}
-\ProvideDictTranslation{and}{et}
-\ProvideDictTranslation{Appendix}{Annexe}
-\ProvideDictTranslation{Authors}{Auteurs}
-\ProvideDictTranslation{authors}{auteur}
-\ProvideDictTranslation{Author}{Auteur}
-\ProvideDictTranslation{author}{auteur}
-\ProvideDictTranslation{Bibliography}{Bibliographie}
-\ProvideDictTranslation{cc}{Copie \`{a} }
-\ProvideDictTranslation{Chapters}{Chapitres}
-\ProvideDictTranslation{chapters}{chapitres}
-\ProvideDictTranslation{Chapter}{Chapitre}
-\ProvideDictTranslation{chapter}{chapitre}
-\ProvideDictTranslation{Conclusion}{Conclusion}
-\ProvideDictTranslation{conclusion}{conclusion}
-\ProvideDictTranslation{Contents}{Contenu}
-\ProvideDictTranslation{Continuation}{Suite}
-\ProvideDictTranslation{continuation}{suite}
-\ProvideDictTranslation{cont}{suite}
-\ProvideDictTranslation{encl (plural)}{P.~J.}
-\ProvideDictTranslation{encl (singular)}{P.~J.}
-\ProvideDictTranslation{encl}{P.~J.}
-\ProvideDictTranslation{Figures}{Figures}
-\ProvideDictTranslation{figures}{figures}
-\ProvideDictTranslation{Figure}{Figure}
-\ProvideDictTranslation{figure}{figure}
-\ProvideDictTranslation{From}{De}
-\ProvideDictTranslation{from}{de}
-\ProvideDictTranslation{Glossary}{Glossaire}
-\ProvideDictTranslation{Index}{Index}
-\ProvideDictTranslation{Introduction}{Introduction}
-\ProvideDictTranslation{introduction}{introduction}
-\ProvideDictTranslation{List of Figures and Tables}{Liste des figures et des tableaux}
-\ProvideDictTranslation{List of Figures}{Liste des figures}
-\ProvideDictTranslation{List of Tables}{Liste des tableaux}
-\ProvideDictTranslation{or}{ou}
-\ProvideDictTranslation{Outline}{Plan}
-\ProvideDictTranslation{Overview}{Sommaire}
-\ProvideDictTranslation{Pages}{Pages}
-\ProvideDictTranslation{pages}{pages}
-\ProvideDictTranslation{Page}{Page}
-\ProvideDictTranslation{page}{page}
-\ProvideDictTranslation{Paragraphs}{Paragraphes}
-\ProvideDictTranslation{paragraphs}{paragraphes}
-\ProvideDictTranslation{Paragraph}{Paragraphe}
-\ProvideDictTranslation{paragraph}{paragraphe}
-\ProvideDictTranslation{Parts}{Parties}
-\ProvideDictTranslation{parts}{parties}
-\ProvideDictTranslation{Part}{Partie}
-\ProvideDictTranslation{part}{partie}
-\ProvideDictTranslation{Preface}{Pr\'{e}face}
-\ProvideDictTranslation{Proofs}{D\'{e}monstrations}
-\ProvideDictTranslation{proofs}{d\'{e}monstrations}
-\ProvideDictTranslation{Proof}{D\'{e}monstration}
-\ProvideDictTranslation{proof}{d\'{e}monstration}
-\ProvideDictTranslation{References}{R\'{e}f\'{e}rences}
-\ProvideDictTranslation{Related work}{travaux connexes}
-\ProvideDictTranslation{Related Work}{Travaux connexes}
-\ProvideDictTranslation{Sections}{Sections}
-\ProvideDictTranslation{sections}{sections}
-\ProvideDictTranslation{Section}{Section}
-\ProvideDictTranslation{section}{section}
-\ProvideDictTranslation{See also}{Voir aussi}
-\ProvideDictTranslation{see also}{voir aussi}
-\ProvideDictTranslation{See}{Voir}
-\ProvideDictTranslation{see}{voir}
-\ProvideDictTranslation{Sketch of Proofs}{Esquisse de preuves}
-\ProvideDictTranslation{Sketch of proofs}{Esquisse de preuves}
-\ProvideDictTranslation{Sketch of Proof}{Esquisse de preuve}
-\ProvideDictTranslation{Sketch of proof}{Esquisse de preuve}
-\ProvideDictTranslation{Subsections}{Sous-sections}
-\ProvideDictTranslation{subsections}{sous-sections}
-\ProvideDictTranslation{Subsection}{Sous-section}
-\ProvideDictTranslation{subsection}{sous-section}
-\ProvideDictTranslation{Summary}{R\'{e}sum\'{e}}
-\ProvideDictTranslation{Tables}{Tables}
-\ProvideDictTranslation{tables}{tables}
-\ProvideDictTranslation{Table}{Table}
-\ProvideDictTranslation{table}{table}
-\ProvideDictTranslation{To}{\`{A}}
-\ProvideDictTranslation{to}{\`{a}}
-
-\ProvideDictTranslation{Monday}{lundi}
-\ProvideDictTranslation{Tuesday}{mardi}
-\ProvideDictTranslation{Wednesday}{mercredi}
-\ProvideDictTranslation{Thursday}{jeudi}
-\ProvideDictTranslation{Friday}{vendredi}
-\ProvideDictTranslation{Saturday}{samedi}
-\ProvideDictTranslation{Sunday}{dimanche}
-
-\ProvideDictTranslation{January}{janvier}
-\ProvideDictTranslation{February}{f\'{e}vrier}
-\ProvideDictTranslation{March}{mars}
-\ProvideDictTranslation{April}{avril}
-\ProvideDictTranslation{May}{mai}
-\ProvideDictTranslation{June}{juin}
-\ProvideDictTranslation{July}{juillet}
-\ProvideDictTranslation{August}{ao\^{u}t}
-\ProvideDictTranslation{September}{septembre}
-\ProvideDictTranslation{October}{octobre}
-\ProvideDictTranslation{November}{novembre}
-\ProvideDictTranslation{December}{d\'{e}cembre}
-%</basic-french>
-%
-%<*theorem-french>
-\ProvideDictionaryFor{French}{translations-theorem-dictionary}
-\ProvideDictTranslation{Answers}{R\'eponses}
-\ProvideDictTranslation{answers}{r\'eponses}
-\ProvideDictTranslation{Answer}{R\'eponse}
-\ProvideDictTranslation{answer}{r\'eponse}
-\ProvideDictTranslation{Comments}{Commentaires}
-\ProvideDictTranslation{comments}{commentaires}
-\ProvideDictTranslation{Comment}{Commentaire}
-\ProvideDictTranslation{comment}{commentaire}
-\ProvideDictTranslation{Conditions}{Conditions}
-\ProvideDictTranslation{conditions}{conditions}
-\ProvideDictTranslation{Condition}{Condition}
-\ProvideDictTranslation{condition}{condition}
-\ProvideDictTranslation{Corollaries}{Corollaires}
-\ProvideDictTranslation{corollaries}{corollaires}
-\ProvideDictTranslation{Corollary}{Corollaire}
-\ProvideDictTranslation{corollary}{corollaire}
-\ProvideDictTranslation{Definitions}{D\'efinitions}
-\ProvideDictTranslation{definitions}{d\'efinitions}
-\ProvideDictTranslation{Definition}{D\'efinition}
-\ProvideDictTranslation{definition}{d\'efinition}
-\ProvideDictTranslation{Examples}{Exemples}
-\ProvideDictTranslation{examples}{exemples}
-\ProvideDictTranslation{Example}{Exemple}
-\ProvideDictTranslation{example}{exemple}
-\ProvideDictTranslation{Exercises}{Exercices}
-\ProvideDictTranslation{exercises}{exercices}
-\ProvideDictTranslation{Exercise}{Exercice}
-\ProvideDictTranslation{exercise}{exercice}
-\ProvideDictTranslation{Lemmas}{Lemmes}
-\ProvideDictTranslation{lemmas}{lemmes}
-\ProvideDictTranslation{Lemma}{Lemme}
-\ProvideDictTranslation{lemma}{lemme}
-\ProvideDictTranslation{Observations}{Observations}
-\ProvideDictTranslation{observations}{observations}
-\ProvideDictTranslation{Observation}{Observation}
-\ProvideDictTranslation{observation}{observation}
-\ProvideDictTranslation{Problems}{Probl\`emes}
-\ProvideDictTranslation{problems}{probl\`emes}
-\ProvideDictTranslation{Problem}{Probl\`eme}
-\ProvideDictTranslation{problem}{probl\`eme}
-\ProvideDictTranslation{Proofs}{D\'emonstrations}
-\ProvideDictTranslation{proofs}{d\'emonstrations}
-\ProvideDictTranslation{Proof}{D\'emonstration}
-\ProvideDictTranslation{proof}{d\'emonstration}
-\ProvideDictTranslation{Propositions}{Propositions}
-\ProvideDictTranslation{propositions}{propositions}
-\ProvideDictTranslation{Proposition}{Proposition}
-\ProvideDictTranslation{proposition}{proposition}
-\ProvideDictTranslation{Questions}{Questions}
-\ProvideDictTranslation{questions}{questions}
-\ProvideDictTranslation{Question}{Question}
-\ProvideDictTranslation{question}{question}
-\ProvideDictTranslation{Remarks}{Remarques}
-\ProvideDictTranslation{remarks}{remarques}
-\ProvideDictTranslation{Remark}{Remarque}
-\ProvideDictTranslation{remark}{remarque}
-\ProvideDictTranslation{Sketches}{Sketches}
-\ProvideDictTranslation{sketches}{sketches}
-\ProvideDictTranslation{Sketch}{Sketch}
-\ProvideDictTranslation{sketch}{sketch}
-\ProvideDictTranslation{Solutions}{Solutions}
-\ProvideDictTranslation{solutions}{solutions}
-\ProvideDictTranslation{Solution}{Solution}
-\ProvideDictTranslation{solution}{solution}
-\ProvideDictTranslation{Theorems}{Th\'eor\`emes}
-\ProvideDictTranslation{theorems}{th\'eor\`emes}
-\ProvideDictTranslation{Theorem}{Th\'eor\`eme}
-\ProvideDictTranslation{theorem}{th\'eor\`eme}
-%</theorem-french>
-%
-%<*basic-breton>
-\ProvideDictionaryFor{Breton}{translations-basic-dictionary}
-\ProvideDictTranslation{Abstract}{Diverra\~n}
-\ProvideDictTranslation{Addresses}{Chomlec'hio\`u}
-\ProvideDictTranslation{addresses}{chomlec'hio\`u}
-\ProvideDictTranslation{Address}{Chomlec'h}
-\ProvideDictTranslation{address}{chomlec'h}
-\ProvideDictTranslation{and}{ha}
-\ProvideDictTranslation{Appendix}{Stagadenn}
-\ProvideDictTranslation{Authors}{Aberourien}
-\ProvideDictTranslation{authors}{oberourien}
-\ProvideDictTranslation{Author}{Aozer}
-\ProvideDictTranslation{author}{aozer}
-\ProvideDictTranslation{Bibliography}{Lennadurezh}
-\ProvideDictTranslation{cc}{cc}
-\ProvideDictTranslation{Chapters}{Pennado\`u}
-\ProvideDictTranslation{chapters}{pennado\`u}
-\ProvideDictTranslation{Chapter}{Pennad}
-\ProvideDictTranslation{chapter}{pennad}
-\ProvideDictTranslation{Conclusion}{Klozadur}
-\ProvideDictTranslation{conclusion}{klozadur}
-\ProvideDictTranslation{Contents}{Taolenn}
-\ProvideDictTranslation{Continuation}{Kendalc'h}
-\ProvideDictTranslation{continuation}{kendalc'h}
-\ProvideDictTranslation{cont}{kend}
-\ProvideDictTranslation{encl (plural)}{Diello\`u kevret}
-\ProvideDictTranslation{encl (singular)}{Diell kevret}
-\ProvideDictTranslation{encl}{Diell kevret}
-\ProvideDictTranslation{Figures}{Figurenno\`u}
-\ProvideDictTranslation{figures}{figurenno\`u}
-\ProvideDictTranslation{Figure}{Figurenn}
-\ProvideDictTranslation{figure}{figurenn}
-\ProvideDictTranslation{From}{Eus}
-\ProvideDictTranslation{from}{eus}
-\ProvideDictTranslation{Glossary}{Geriaoueg}
-\ProvideDictTranslation{Index}{Meneger}
-\ProvideDictTranslation{Introduction}{Digoradur}
-\ProvideDictTranslation{introduction}{digoradur}
-\ProvideDictTranslation{List of Figures and Tables}{Listenn ar Figurenno\`u and Taolenno\`u}
-\ProvideDictTranslation{List of Figures}{Listenn ar Figurenno\`u}
-\ProvideDictTranslation{List of Tables}{Listenn an Taolenno\`u}
-\ProvideDictTranslation{or}{pe}
-\ProvideDictTranslation{Outline}{Ezlinenn}
-\ProvideDictTranslation{Overview}{Gwel dre vras}
-\ProvideDictTranslation{Pages}{Pajenn\`ou}
-\ProvideDictTranslation{pages}{pajenn\`ou}
-\ProvideDictTranslation{Page}{Pajenn}
-\ProvideDictTranslation{page}{pajenn}
-\ProvideDictTranslation{Paragraphs}{Rannbennado\`u}
-\ProvideDictTranslation{paragraphs}{rannbennado\`u}
-\ProvideDictTranslation{Paragraph}{Rannbennad}
-\ProvideDictTranslation{paragraph}{rannbennad}
-\ProvideDictTranslation{Parts}{Lodenno\`u}
-\ProvideDictTranslation{parts}{lodenno\`u}
-\ProvideDictTranslation{Part}{Lodenn}
-\ProvideDictTranslation{part}{lodenn}
-\ProvideDictTranslation{Preface}{Rakskrid}
-\ProvideDictTranslation{Proofs}{Prouenn\`ou}
-\ProvideDictTranslation{proofs}{prouenn\`ou}
-\ProvideDictTranslation{Proof}{Prouenn}
-\ProvideDictTranslation{proof}{prouenn}
-\ProvideDictTranslation{References}{Daveenno\`u}
-\ProvideDictTranslation{Related work}{Labour liammet}
-\ProvideDictTranslation{Related Work}{Labour Liammet}
-\ProvideDictTranslation{Sections}{Ranno\`u}
-\ProvideDictTranslation{sections}{ranno\`u}
-\ProvideDictTranslation{Section}{Rann}
-\ProvideDictTranslation{section}{rann}
-\ProvideDictTranslation{See also}{Gwelout ivez}
-\ProvideDictTranslation{see also}{gwelout ivez}
-\ProvideDictTranslation{See}{Gwelout}
-\ProvideDictTranslation{see}{gwelout}
-\ProvideDictTranslation{Sketch of Proofs}{Skeudenn ar Brouenn\`ou}
-\ProvideDictTranslation{Sketch of proofs}{Skeudenn ar brouenn\`ou}
-\ProvideDictTranslation{Sketch of Proof}{Skeudenn ar Brouenn}
-\ProvideDictTranslation{Sketch of proof}{Skeudenn ar brouenn}
-\ProvideDictTranslation{Subsections}{Isrann\`ou}
-\ProvideDictTranslation{subsections}{isran\`ou}
-\ProvideDictTranslation{Subsection}{Isran}
-\ProvideDictTranslation{subsection}{isran}
-\ProvideDictTranslation{Summary}{Diverra\~n}
-\ProvideDictTranslation{Tables}{Taolenno\`u}
-\ProvideDictTranslation{tables}{taolenno\`u}
-\ProvideDictTranslation{Table}{Taolenn}
-\ProvideDictTranslation{table}{taolenn}
-\ProvideDictTranslation{To}{Da}
-\ProvideDictTranslation{to}{da}
-
-\ProvideDictTranslation{Monday}{Lun}
-\ProvideDictTranslation{Tuesday}{Meurzh}
-\ProvideDictTranslation{Wednesday}{Merc'her}
-\ProvideDictTranslation{Thursday}{Yaou}
-\ProvideDictTranslation{Friday}{Gwener}
-\ProvideDictTranslation{Saturday}{Sadorn}
-\ProvideDictTranslation{Sunday}{Sul}
-
-\ProvideDictTranslation{January}{Genver}
-\ProvideDictTranslation{February}{C'hwevrer}
-\ProvideDictTranslation{March}{Meurzh}
-\ProvideDictTranslation{April}{Ebrel}
-\ProvideDictTranslation{May}{Mae}
-\ProvideDictTranslation{June}{Mezheven}
-\ProvideDictTranslation{July}{Gouere}
-\ProvideDictTranslation{August}{Eost}
-\ProvideDictTranslation{September}{Gwengolo}
-\ProvideDictTranslation{October}{Here}
-\ProvideDictTranslation{November}{Du}
-\ProvideDictTranslation{December}{Kerzu}
-%</basic-breton>
-%
-%<*theorem-breton>
-\ProvideDictionaryFor{Breton}{translations-theorem-dictionary}
-\ProvideDictTranslation{Answers}{Responto\`u}
-\ProvideDictTranslation{answers}{responto\`u}
-\ProvideDictTranslation{Answer}{Respont}
-\ProvideDictTranslation{answer}{respont}
-\ProvideDictTranslation{Answerabb}{Resp.}
-\ProvideDictTranslation{answerabb}{resp.}
-\ProvideDictTranslation{Comments}{Evezhiadenno\`u}
-\ProvideDictTranslation{comments}{evezhiadenno\`u}
-\ProvideDictTranslation{Comment}{Evezhiadenn}
-\ProvideDictTranslation{comment}{evezhiadenn}
-\ProvideDictTranslation{Conditions}{Modelezhioù}
-\ProvideDictTranslation{conditions}{modelezhioù}
-\ProvideDictTranslation{Condition}{Plegenn}
-\ProvideDictTranslation{condition}{plegenn}
-\ProvideDictTranslation{Continued}{Kendalc'het}
-\ProvideDictTranslation{continued}{kendalc'het}
-\ProvideDictTranslation{Continuedabb}{Kend.}
-\ProvideDictTranslation{continuedabb}{kend.}
-\ProvideDictTranslation{Corollaries}{Heuliado\`u}
-\ProvideDictTranslation{corollaries}{heuliado\`u}
-\ProvideDictTranslation{Corollary}{Heuliad}
-\ProvideDictTranslation{corollary}{heuliad}
-\ProvideDictTranslation{Definitions}{Termenadurio\`u}
-\ProvideDictTranslation{definitions}{termenadurio\`u}
-\ProvideDictTranslation{Definition}{Termenadur}
-\ProvideDictTranslation{definition}{termenadur}
-\ProvideDictTranslation{Examples}{Skouerio\`u}
-\ProvideDictTranslation{examples}{skouerio\`u}
-\ProvideDictTranslation{Example}{Skouer}
-\ProvideDictTranslation{example}{skouer}
-\ProvideDictTranslation{Exercises}{Deverio\`u}
-\ProvideDictTranslation{exercises}{deverio\`u}
-\ProvideDictTranslation{Exercise}{Dever}
-\ProvideDictTranslation{exercise}{dever}
-\ProvideDictTranslation{Lemmas}{Lemmao\`u}
-\ProvideDictTranslation{lemmas}{lemmao\`u}
-\ProvideDictTranslation{Lemma}{Lemma}
-\ProvideDictTranslation{lemma}{lemma}
-\ProvideDictTranslation{Observations}{Arselladenno\`u}
-\ProvideDictTranslation{observations}{arselladenno\`u}
-\ProvideDictTranslation{Observation}{Arselladenn}
-\ProvideDictTranslation{observation}{arselladenn}
-\ProvideDictTranslation{Problems}{Kudenno\`u}
-\ProvideDictTranslation{problems}{kudenno\`u}
-\ProvideDictTranslation{Problem}{Kudenn}
-\ProvideDictTranslation{problem}{kudenn}
-\ProvideDictTranslation{Proofs}{Prouenno\`u}
-\ProvideDictTranslation{proofs}{prouenno\`u}
-\ProvideDictTranslation{Proof}{Prouenn}
-\ProvideDictTranslation{proof}{prouenn}
-\ProvideDictTranslation{Proofabb}{Pro.}
-\ProvideDictTranslation{proofabb}{pro.}
-\ProvideDictTranslation{Propositions}{Kinnigo\`u}
-\ProvideDictTranslation{propositions}{kinnigo\`u}
-\ProvideDictTranslation{Proposition}{Kinnig}
-\ProvideDictTranslation{proposition}{kinnig}
-\ProvideDictTranslation{Questions}{Goulenno\`u}
-\ProvideDictTranslation{questions}{goulenno\`u}
-\ProvideDictTranslation{Question}{Goulenn}
-\ProvideDictTranslation{question}{goulenn}
-\ProvideDictTranslation{Remarks}{Evezhiadenno\`u}
-\ProvideDictTranslation{remarks}{evezhiadenno\`u}
-\ProvideDictTranslation{Remark}{Evezhiaden}
-\ProvideDictTranslation{remark}{evezhiaden}
-\ProvideDictTranslation{Sketches}{Tresadenno\`u}
-\ProvideDictTranslation{sketches}{tresadenno\`u}
-\ProvideDictTranslation{Sketch}{Tresadenn}
-\ProvideDictTranslation{sketch}{tresadenn}
-\ProvideDictTranslation{Solutions}{Diskoulmo\`u}
-\ProvideDictTranslation{solutions}{diskoulmo\`u}
-\ProvideDictTranslation{Solution}{Diskoulm}
-\ProvideDictTranslation{solution}{diskoulm}
-\ProvideDictTranslation{Solutionabb}{Dis.}
-\ProvideDictTranslation{solutionabb}{dis.}
-\ProvideDictTranslation{Summaries}{Diverradenno\`u}
-\ProvideDictTranslation{summaries}{diverradenno\`u}
-\ProvideDictTranslation{Summary}{diverra\~n}
-\ProvideDictTranslation{summary}{diverra\~n}
-\ProvideDictTranslation{Theorems}{Teoremo\`u}
-\ProvideDictTranslation{theorems}{teoremo\`u}
-\ProvideDictTranslation{Theorem}{Teorem}
-\ProvideDictTranslation{theorem}{teorem}
-%</theorem-breton>
 % \fi
 
 % \Finale
