@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-The MULTINOTES package v1.0 - 2025/06/21
+The MULTINOTES package v1.1 - 2025/06/25
 Tools for typesetting multilingual lecture notes and exercises.
 --------------------------------------------------------------------------
 Dafydd Evans

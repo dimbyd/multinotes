@@ -18,9 +18,9 @@
 %% and version 1.3 or later is part of all distributions of
 %% LaTeX version 2005/12/01 or later.
 %% 
-\NeedsTeXFormat{LaTeX2e}[2005/12/31]
+\NeedsTeXFormat{LaTeX2e}[2005-12-31]
 \ProvidesPackage{multinotes}
-[2025/06/21 v1.0 Multilingual lecture notes]
+[2025-06-25 v1.1 Multilingual lecture notes]
 \RequirePackage{amsmath,amsfonts,amssymb,amsthm}
 \RequirePackage{babel}
 \RequirePackage{caption}
@@ -113,8 +113,8 @@
 }
 \newcommand{\includelanguage}[1]{
     \multinotes@activatelanguage{#1}
-    \LoadDictionaryFor{#1}{translations-basic-dictionary}
-    \LoadDictionaryFor{#1}{translations-theorem-dictionary}
+    \LoadDictionaryFor{#1}{multinotes-basic-dictionary}
+    \LoadDictionaryFor{#1}{multinotes-theorem-dictionary}
 }
 \newcommand{\setlanguagestyle}[2]{\expandafter\def\csname multinotes@#1style\endcsname{#2}}
 \newcommand{\multinotes@commonstyle}{\normalfont\color{\multinotes@CurrentColour}}

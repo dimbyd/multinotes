@@ -16,50 +16,24 @@
 % \fi
 %
 % \iffalse
-%<*readme>
-%--------------------------------------------------------------------------
-%The MULTINOTES package v1.0 - 2025/06/21
-%Tools for typesetting multilingual lecture notes and exercises.
-%--------------------------------------------------------------------------
-%Dafydd Evans
-%Web:    https://github.com/dimbyd/multinotes
-%E-mail: evansd8@cf.ac.uk
-%--------------------------------------------------------------------------
-%Copyright 2025 Dafydd Evans
-%
-%Released under the LaTeX Project Public License v1.3c or later
-%See https://www.latex-project.org/lppl.txt
-%--------------------------------------------------------------------------
-%The multinotes package consists of the files
-% - multinotes.dtx
-% - multinotes.ins
-% - multinotes.pdf
-% - README
-%--------------------------------------------------------------------------
-%If you have any ideas, questions, suggestions or bugs to report, please
-%feel free to contact me.
-%--------------------------------------------------------------------------
-%</readme>
-%
 %<*driver>
 \ProvidesFile{multinotes.dtx}
 %</driver>
-%<package>\NeedsTeXFormat{LaTeX2e}[2005/12/31]
+%<package>\NeedsTeXFormat{LaTeX2e}[2005-12-31]
 %<package>\ProvidesPackage{multinotes}
 %<*package>
-	[2025/06/21 v1.0 Multilingual lecture notes]
+	[2025-06-25 v1.1 Multilingual lecture notes]
 %</package>
 %
 %<*driver>
 \documentclass{ltxdoc}
 \setlength{\parindent}{0em}
+\usepackage{idxlayout}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 \begin{document}
   \DocInput{multinotes.dtx}
-  \PrintChanges
-  \PrintIndex
 \end{document}
 %</driver>
 % \fi
@@ -82,7 +56,9 @@
 %   Right brace   \}     Tilde         \~}
 %
 %
-% \changes{v1}{2024/12/31}{Initial version}
+% \changes{v1.0}{2025/06/21}{Initial version}
+%
+% \changes{v1.1}{2025/06/25}{Dictionary files prefix changed to `multinotes`}
 %
 % \GetFileInfo{multinotes.dtx}
 %
@@ -99,6 +75,19 @@
 % \DoNotIndex{\hskip,\hss,\llap,\advance,\noindent,\enspace}
 % \DoNotIndex{\fbox,\edef,\let}
 % \DoNotIndex{\leftmargin,\leftskip,\linewidth}
+% \DoNotIndex{\leftmargin,\leftskip,\linewidth}
+% \DoNotIndex{\@ifclassloaded,\@ifpackageloaded,\if@undefined,\@undefined,\@temp}
+% \DoNotIndex{\AtBeginDocument,\bfseries,\bigskip,\char,\ClassError,\color,\csname}
+% \DoNotIndex{\endcsname,\expandafter,\hfill,\hspace}
+% \DoNotIndex{\ifcat,\ifcsname,\ifnum,\ifthenelse,\isempty,\long}
+% \DoNotIndex{\makelabel,\mbox,\MessageBreak}
+% \DoNotIndex{\newif,\newlength,\next,\nobreak,\noexpand,\null}
+% \DoNotIndex{\PackageWarning,\par,\parbox,\parindent,\phantom,\quad}
+% \DoNotIndex{\raisebox,\relax,\renewcommand,\renewenvironment,\renewtcbox}
+% \DoNotIndex{\RequirePackage,\rlap,\rule}
+% \DoNotIndex{\settoheight,\settowidth,\sl,\smallskip,\space,\strut}
+% \DoNotIndex{\tcbuselibrary,\text,\textcolor,\textheight,\textsl,\textwidth,\topsep}
+% \DoNotIndex{\usecounter,\value,\vbox,\vspace,\xspace}
 %
 % \title{The \textsf{multinotes} package\thanks{This document corresponds to \textsf{multinotes}~\fileversion, dated \filedate.}}
 % \author{Dafydd Evans\\\small Prifysgol Caerdydd / Cardiff University\\\texttt{\small evansd8@cf.ac.uk}\\}
@@ -305,7 +294,7 @@
 % \DescribeMacro{\correctchoice}
 % Item type for correct choices within |choices| and |checkboxes| environments.
 %
-% \StopEventually{\PrintIndex}
+% \MaybeStop{\PrintChanges\PrintIndex}
 %
 % \iffalse
 %<*package>
@@ -451,8 +440,8 @@
 }
 \newcommand{\includelanguage}[1]{
     \multinotes@activatelanguage{#1}
-    \LoadDictionaryFor{#1}{translations-basic-dictionary}
-    \LoadDictionaryFor{#1}{translations-theorem-dictionary}
+    \LoadDictionaryFor{#1}{multinotes-basic-dictionary}
+    \LoadDictionaryFor{#1}{multinotes-theorem-dictionary}
 }
 %    \end{macrocode}
 %
@@ -1138,7 +1127,7 @@
 %
 % \iffalse
 %<*basic-english>
-\ProvideDictionaryFor{English}{translations-basic-dictionary}
+\ProvideDictionaryFor{English}{multinotes-basic-dictionary}
 \ProvideDictTranslation{Abstract}{Abstract}
 \ProvideDictTranslation{Addresses}{Addresses}
 \ProvideDictTranslation{addresses}{addresses}
@@ -1247,7 +1236,7 @@
 \ProvideDictTranslation{December}{December}
 %</basic-english>
 %<*theorem-english>
-\ProvideDictionaryFor{English}{translations-theorem-dictionary}
+\ProvideDictionaryFor{English}{multinotes-theorem-dictionary}
 \ProvideDictTranslation{Answers}{Answers}
 \ProvideDictTranslation{answers}{answers}
 \ProvideDictTranslation{Answer}{Answer}
@@ -1345,7 +1334,7 @@
 %</theorem-english>
 %
 %<*basic-welsh>
-\ProvideDictionaryFor{Welsh}{translations-basic-dictionary}
+\ProvideDictionaryFor{Welsh}{multinotes-basic-dictionary}
 \ProvideDictTranslation{Abstract}{Crynodeb}
 \ProvideDictTranslation{Addresses}{Cyfeiriadau}
 \ProvideDictTranslation{addresses}{cyfeiriadau}
@@ -1455,7 +1444,7 @@
 %</basic-welsh>
 %
 %<*theorem-welsh>
-\ProvideDictionaryFor{Welsh}{translations-theorem-dictionary}
+\ProvideDictionaryFor{Welsh}{multinotes-theorem-dictionary}
 \ProvideDictTranslation{Answers}{Atebion}
 \ProvideDictTranslation{answers}{atebion}
 \ProvideDictTranslation{Answer}{Ateb}
